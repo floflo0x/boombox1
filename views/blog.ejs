@@ -1,0 +1,354 @@
+<%- include("./includes/head.ejs", { data2: '' }); %>
+
+<link rel="stylesheet" href="/blog.css">
+
+<body>
+  <header>
+    <%- include("./includes/header.ejs"); %>
+  </header>
+
+  <div class="loading-spinner" id="loadingSpinner">
+    <img src="/cube.webp" alt="Your Logo" class="logoSp">
+    <div class="spinner"></div>
+  </div>
+
+  <section>
+    <div class="container div1 bg-light d-none">
+      <div class="row">
+        <div class="col-12 col-sm-12 nav1">
+          <% catData.forEach((i, index) => { %>
+            <a href="/blogNews/<%= i.id %>" class="nav1_btns"><%= i.name %></a>
+          <% }) %>
+        </div>
+        <hr />
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container bg-light p-0 blog_div1">
+      <div class="row">
+        <div class="col-12 col-sm-12 div3 border-0">
+          <h5></h5>
+          <h5 class="heading1"><%= heading %></h5>
+          <form id="myForm" method="GET">
+            <select id="mySelect" name="ts" style="border: none;">
+              <option>Sort By</option>
+              <option value="n" <%= ts === 'n' ? 'selected' : '' %>>
+                <%= lang.home_h1 %>
+              </option>
+              <option value="w" <%= ts === 'w' ? 'selected' : '' %>>
+                <%= lang.home_h2 %>
+              </option>
+              <option value="m" <%= ts === 'm' ? 'selected' : '' %>>
+                <%= lang.home_h3 %>
+              </option>
+              <option value="y" <%= ts === 'y' ? 'selected' : '' %>>
+                <%= lang.home_h4 %>
+              </option>
+            </select>
+            <input type="hidden" name="id" value="<%= id %>">
+
+              <input type="hidden" name="name" value="<%= heading %>">
+          </form>
+        </div>
+
+        <div class="col-12 col-sm-12 mt-3 div8">
+          <% if (showData.length >= 1 ) { %>
+            <div class="scroll-container-wrapper">
+              <button class="scroll-button left">
+                <i class="fa-solid fa-chevron-left fa-2xl"></i>
+              </button>
+              <div class="scroll-container">
+                <% showData.forEach(i => { %>
+                  <a href="/blogData/<%= i.id %>/<%= i.title.replace(/[^a-zA-Z0-9\s]/g, '').split(' ').slice(0, 3).join('_') %>" class="scroll_sk_div1">
+                    <div class="image-wrapper">
+                      <div class="skeleton"></div>
+                      <div class="card text-bg-dark">
+                        <img 
+                          src="" 
+                          alt="Movie Image" 
+                          data-src="<%= i.image %>"
+                          width="200" 
+                          height="200"
+                        >
+                        <div class="card-body">
+                          <p class="card-text text-center"><%= i.title %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                <% }) %>
+              </div>
+              <button class="scroll-button right" onclick="scrollRight();">
+                <i class="fa-solid fa-chevron-right fa-2xl"></i>
+              </button>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="col-12 col-sm-12 mt-5">
+          <% if(lang.smws.lang == 'en') { %>
+            <h5 class="text-center"><b><span style="color: #ee3483;">FEATURED</span> <span style="color: #00e5fa;">NEWS</span></b></h5>
+          <% } else { %>
+            <h5 class="text-center"><b><span style="color: #ee3483;">NOTICIAS</span> <span style="color: #00e5fa;">DESTACADAS</span></b></h5>
+          <% } %>
+        </div>
+
+        <% if(featured != '') { %>
+          <div class="col-12 col-sm-12 div7">
+            <div class="row">
+              <% featured.forEach((i, index) => { %>
+                <% if (index < 2) { %>
+                  <div class="col-12 col-sm-12 col-md-6 video_box">
+                    <a href="/blogData/<%= i.id %>/<%= i.title.replace(/[^a-zA-Z0-9\s]/g, '').split(' ').slice(0, 3).join('_') %>">
+                      <div class="skeleton2"></div>
+                      <img 
+                        src="" 
+                        alt="Movie Image" 
+                        data-src="<%= i.image %>"
+                        width="100%"
+                        height="100%"
+                      >
+                    </a>
+                  </div>
+                <% } else { %>
+                  <div class="col-6 video_box">
+                    <a href="/blogData/<%= i.id %>/<%= i.title.replace(/[^a-zA-Z0-9\s]/g, '').split(' ').slice(0, 3).join('_') %>">
+                      <div class="skeleton2"></div>
+                      <img 
+                        src="" 
+                        alt="Movie Image" 
+                        data-src="<%= i.image %>"
+                        width="100%"
+                        height="100%"
+                      >
+                    </a>
+                  </div>
+                <% } %>
+              <% }) %>
+            </div>
+          </div>
+        <% } %>
+
+        <div class="col-12 col-sm-12 mt-5 mb-2 div4">
+            <h5></h5>
+            <% if(lang.smws.lang == 'en') { %>
+              <h5 class="text-center"><b><span style="color: #ee3483;">ENTERTAINMENT</span> <span style="color: #00e5fa;">NEWS</span></b></h5>
+              <a href="/blogNews/8/?pgno=2&tc=<%= entertainment.length %>&t=<%= totalCount %>" class="all_div">All</a>
+            <% } else { %>
+              <h5 class="text-center"><b><span style="color: #ee3483;">NOTICIAS</span> <span style="color: #00e5fa;">DE ENTRETENIMIENTO</span></b></h5>
+              <a href="/blogNews/8/?pgno=2&tc=<%= entertainment.length %>&t=<%= totalCount %>" class="all_div">Todo</a>
+            <% } %>
+          </div>
+
+        <% if(entertainment != '') { %>
+          <div class="col-12 col-sm-12 div10">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+              <% entertainment.forEach(i => { %>
+                <div class="col">
+                  <a href="/blogData/<%= i.id %>/<%= i.title.replace(/[^a-zA-Z0-9\s]/g, '').split(' ').slice(0, 3).join('_') %>">
+                    <div class="card text-bg-dark">
+                      <div class="skeleton3"></div>
+                      <div class="ent_div">
+                        <img src="" data-src="<%= i.image %>" class="" alt="..." width="100%" height="100%">
+                      </div>
+                      <div class="card-body">
+                        <h5 class="card-title"><%= i.title %></h5>
+                        <p class="card-text d-none"><%= i.des %></p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              <% }) %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container" style="height: 200px;"></div>
+  </section>
+
+  <section>
+    <%- include("./includes/lang_select.ejs"); %>
+  </section>
+
+  <footer>
+    <%- include("./includes/footer.ejs"); %>
+  </footer>
+
+  <script>
+    const data3 = <%- JSON.stringify(showData) %>;
+  </script>
+
+  <script type="text/javascript">
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    // console.log(loadingSpinner);
+    
+    setTimeout(function() {
+      if (loadingSpinner) {
+        loadingSpinner.style.display = 'none';
+      }
+    }, 5000);
+
+    // console.log(data3);
+
+    if (data3 != '') {
+      const leftBtn = globalThis.document.querySelector('.left');
+
+      leftBtn.addEventListener('click', (e) => {
+        const container = document.querySelector('.scroll-container');
+          container.scrollBy({
+               left: -200, // Scroll amount (adjust as needed)
+               behavior: 'smooth' // Smooth scrolling effect
+          });
+      })
+
+      function scrollRight() {
+          const container = document.querySelector('.scroll-container');
+          container.scrollBy({
+              left: 200, // Scroll amount (adjust as needed)
+              behavior: 'smooth' // Smooth scrolling effect
+          });
+      }
+    }
+
+    globalThis.document.addEventListener('DOMContentLoaded', () => {
+      // console.log(id, name);
+      const selectElement = globalThis.document.getElementById('mySelect');
+      const form = globalThis.document.getElementById('myForm');
+      selectElement.addEventListener('change', function() {
+        const sl = this.value;
+        // console.log(sl);
+        form.action = `/newsFilter?ts=${sl}`;
+        form.submit();
+      });
+
+      const ct1 = document.querySelectorAll('.card-title');
+
+      const heading = document.querySelector('.heading1');
+
+      const baseImgUrl = "https://api.hiphopboombox.com/api/uploads/";
+
+      heading.innerHTML = `<span style="color: #ee3483;">${heading.textContent.split(' ')[0]}</span> <span style="color: #00e5fa;">${heading.textContent.split(' ')[1]}</span>`;
+
+      const images = document.querySelectorAll('.image-wrapper img');
+
+      const images2 = document.querySelectorAll('.video_box img');
+
+      const images3 = document.querySelectorAll('.row-cols-1 img');
+
+      images.forEach(img => {
+        img.onload = () => {
+            img.parentElement.previousElementSibling.style.display = 'none'; // Hide skeleton
+            img.parentElement.style.display = 'flex'; // Show image
+        };
+
+        img.onerror = () => {
+          // Hide the image
+          img.parentElement.style.display = 'none';
+              
+          // Show the skeleton loader
+          const skeleton = img.parentElement.previousElementSibling;
+          if (skeleton) {
+              skeleton.style.display = 'block';
+          }
+        };
+
+        const imgElement = img.getAttribute('data-src');
+        // console.log(imgElement); 
+                
+        // console.log(!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop'));
+
+        if (!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop')) {
+          img.setAttribute('src', baseImgUrl + imgElement);
+        }
+
+        else {
+          img.setAttribute('src', imgElement); // Set src to trigger loading
+        }
+      });
+
+      images2.forEach(img => {
+        img.onload = () => {
+            img.previousElementSibling.style.display = 'none'; // Hide skeleton
+            img.style.display = 'block'; // Show image
+        };
+
+        img.onerror = () => {
+          // Hide the image
+          img.style.display = 'none';
+              
+          // Show the skeleton loader
+          const skeleton = img.previousElementSibling;
+          if (skeleton) {
+              skeleton.style.display = 'block';
+          }
+        };
+
+        const imgElement = img.getAttribute('data-src');
+        // console.log(imgElement); 
+                
+        // console.log(!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop'));
+
+        if (!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop')) {
+          img.setAttribute('src', baseImgUrl + imgElement);
+        }
+
+        else {
+          img.setAttribute('src', imgElement); // Set src to trigger loading
+        }
+      });
+
+      images3.forEach(img => {
+        img.onload = () => {
+            img.parentElement.previousElementSibling.style.display = 'none'; // Hide skeleton
+            img.parentElement.style.display = 'block'; // Show image
+        };
+
+        img.onerror = () => {
+          // Hide the image
+          img.parentElement.style.display = 'none';
+              
+          // Show the skeleton loader
+          const skeleton = img.parentElement.previousElementSibling;
+          if (skeleton) {
+              skeleton.style.display = 'block';
+          }
+        };
+
+        const imgElement = img.getAttribute('data-src');
+        // console.log(imgElement); 
+                
+        // console.log(!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop'));
+
+        if (!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop')) {
+          img.setAttribute('src', baseImgUrl + imgElement);
+        }
+
+        else {
+          img.setAttribute('src', imgElement); // Set src to trigger loading
+        }
+      });
+
+      function truncateText(text) {
+          const words = text.split(' '); // Split the text into words
+          if (words.length >= 15) {
+              return words.slice(0, 12).join(' ') + '...'; // Join the first 50 words and add "..."
+          }
+          return text; // Return the original text if it's 50 words or less
+      }
+
+      ct1.forEach(i => {
+        // console.log(i.textContent.trim());
+        i.textContent = truncateText(i.textContent.trim());
+      })
+    })
+  </script>
+
+</body>
+
+<%- include("./includes/end.ejs"); %>

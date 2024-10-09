@@ -1,0 +1,115 @@
+<div class="container-fluid border-0 bg-light">
+	<div class="row">
+		<div class="col-xxl">
+			<nav class="navbar navbar-expand-lg bg-light fixed-top">
+				<div class="container-fluid">
+					<a class="navbar-brand" href="/">
+						<img src="https://api.hiphopboombox.com/api/uploads/hiphop2.jpeg" alt="" height="40" />
+					</a>
+					<button 
+						class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+						aria-expanded="false" 
+						aria-label="Toggle navigation"
+					>
+					  	<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse first_nav" id="navbarSupportedContent">
+						<div class="one border-0">
+							<a href="#" target="_blank" class="link_item"
+							>
+								<%= lang.nav_h1 %>
+							</a>
+							<a href="#" target="_blank" class="link_item"
+							>
+								<%= lang.nav_h2 %>
+							</a>
+							<a href="#" target="_blank" class="link_item"
+							>
+								<%= lang.nav_h3 %>
+							</a>
+
+							<a href="/blog" class="link_item"
+							>
+								<%= lang.nav_h4 %>
+							</a>
+
+							<form action="/poll" method="POST">
+								<input type="hidden" name="id1" value="0">
+								<input type="hidden" name="id2" value="0">
+								<button type="submit" 
+									class="link_item bg-transparent mb_div border-0 p-0"
+									style="cursor: pointer;"
+								>
+									<%= lang.nav_h7 %>
+								</button>
+							</form>
+
+							<div class="d-flex">
+						    	<span class="form-control-feedback">
+								    <i class="fa-solid fa-magnifying-glass"></i>
+								</span>
+						    	<form id="searchForm" action="/search" class="d-flex search_form" role="search" method="GET">
+								    <input id="searchInput" class="form-control me-2 bg-transparent border-0" type="search" name="s" placeholder="<%= lang.nav_h5 %>" aria-label="Search" style="color: black;">
+								</form>
+						  	</div>
+						</div>
+
+						<div class="three border-0">
+							<form action="/poll" method="POST">
+								<input type="hidden" name="id1" value="0">
+								<input type="hidden" name="id2" value="0">
+								<button class="link_item bg-transparent dsk_div border-0 p-0" style="cursor: pointer;">
+									<i class="fa-solid fa-square-poll-vertical fa-xl" style="color: black;"></i>
+								</button>
+							</form>
+
+							<% if (!auth) { %>
+							    <a href="/register" class="big_view">
+							    	<i class="fa-solid fa-user fa-lg" 
+							    	style="color: #000000;"></i>
+							    </a>
+							    <a href="/register" class="small_view">
+							    	<%= lang.nav_h6 %>
+							    </a>
+							<% } else { %>
+                <a href="/settings">
+                  <i class="fa-solid fa-gear fa-lg" style="color: black;"></i>
+                </a>
+                
+                <!-- <a href="/logout">
+									<i class="fa-solid fa-power-off fa-2xl" style="color: black;"></i>
+								</a> -->
+							<% } %>
+						</div>
+
+						<div class="two border-0">
+							<a href="#" class="list_item_link twitter" target="_blank">
+								<i class="fa-brands fa-twitter" 
+								style="color: #1DA1F2;"></i>
+							</a>
+							<a href="https://www.facebook.com/profile.php?id=61556088652649" class="list_item_link facebook" target="_blank">
+								<i class="fa-brands fa-facebook" 
+								style="color: #1877F2;"></i>
+							</a>
+							<a href="https://www.instagram.com/hip.hop.boombox/profilecard/?igsh=ZTJld3plbjJyNTM3" class="list_item_link instagram" target="_blank">
+								<i class="fa-brands fa-square-instagram" 
+                   style="color: #E1306C;"></i>
+							</a>
+							<a href="https://www.tiktok.com/@hiphopboombox?_t=8qHKndysIl4&_r=1" class="list_item_link tiktok" target="_blank">
+								<i class="fa-brands fa-tiktok" 
+								style="color: #00f2ea;"></i>
+							</a>
+							<a href="#" class="list_item_link youtube" target="_blank">
+								<i class="fa-brands fa-youtube"
+								style="color: #FF0000;"></i>
+							</a>
+              <a href="https://www.threads.net/@hip.hop.boombox" class="list_item_link threads" target="_blank">
+								<i class="fa-brands fa-threads" style="color: black;"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+</div>

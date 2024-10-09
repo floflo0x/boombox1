@@ -1,0 +1,23 @@
+<div class="container-fluid">
+	<div class="position-relative">
+	    <div class="position-fixed bottom-0 start-0" id="button-container" style="z-index: 1030 !important;">
+	        <form action="/language" method="POST">
+	            <div class="d-flex flex-column justify-content-center align-items-center">
+	              <button class="en-button" type="submit" name="lang" value="en">
+	                <span class="button-content" id="enBtn">
+	                  <img src="https://i.ibb.co/PGJqbN3/usFlag.png" width="13" height="13" />
+	                  English <span class="<%= lang.smws.lang == 'en' ? 'btn_active' : 'btn_deactive' %>"><i class="fa-solid fa-arrow-left" style="color: white;"></i></span>
+	                </span>
+	              </button>
+                
+	              <button class="ru-button" type="submit" name="lang" value="sp">
+	                <span class="button-content" id="spBtn">
+	                  <img src="https://i.ibb.co/xmyq5Sp/spain.png" width="13" height="13" /> 
+	                  Spanish <span class="<%= lang.smws.lang == 'sp' ? 'btn_active' : 'btn_deactive' %>"><i class="fa-solid fa-arrow-left" style="color: white;"></i></span>
+	                </span>
+	              </button>
+	            </div>
+	        </form>
+	    </div>
+	</div>
+</div>
