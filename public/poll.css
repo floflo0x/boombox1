@@ -1,0 +1,9 @@
+.pollCard {
+	width: 100%;
+}
+
+.pollTitle {
+	font-weight: 700;
+	font-size: 25px;
+	padding: 10px;
+}

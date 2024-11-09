@@ -1,0 +1,202 @@
+<%- include("./includes/head.ejs", { data2: '' }); %>
+
+<link rel="stylesheet" href="/style.css">
+
+<body>
+	<header>
+		<%- include("./includes/header.ejs"); %>
+	</header>
+
+	<div class="loading-spinner" id="loadingSpinner">
+	    <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	    <div class="spinner"></div>
+  	</div>
+
+	<section>
+		<%- include("./includes/nav1.ejs", { myArray: catData }); %>
+	</section>
+
+	<section>
+		<div class="container bg-light div2 p-0">
+			<div class="row">
+				<% if(data != '') { %>
+					<div class="col-12 col-sm-12 mb-3 text-center">
+						<h2><%= data.name %></h2>
+					</div>
+
+					<div class="col-12 col-sm-12 mb-3">
+						<div class="p-2" id="descp">
+              <p>
+                Agreement (EULA) 
+              </p>
+              <h3>
+                Effective Date: 09/26/2024
+              </h3>
+              <div>
+                This End User License Agreement (“Agreement”) is a legal agreement between you (“User” or “You”) and 
+                <span style="font-weight: 600;">HipHopBoomBox</span>(“Company,” “We,” or “Us”), the owners and operators of the 
+                <span style="font-weight: 600;">HipHopBoomBox</span> application (“App”). 
+                By downloading, installing, or using the App, You agree to be bound by the terms of this Agreement. If You do not agree to the terms of this Agreement, do not use the App.
+              </div>
+              <br>
+              <h3>
+                1. License Grant
+              </h3>
+              <div>Subject to the terms and conditions of this Agreement, the Company grants You a limited, non-exclusive, 
+                non-transferable, non-sublicensable, revocable license to use the App solely for Your personal, non-commercial 
+                use. You may not modify, reverse engineer, or otherwise exploit the App or its content.
+              </div>
+              <br>
+              <h3>
+                2. Objectionable Content and Conduct
+              </h3>
+              <div>We have a zero-tolerance policy for objectionable content and abusive users. The following behaviors and 
+                content are strictly prohibited:
+                <p>- Harassment, bullying, or abusive language or behavior.</p>
+                <p>- Content that is discriminatory, hateful, violent, sexually explicit, or otherwise inappropriate.</p>
+                <p>- Use of the App to conduct illegal activities.</p>
+                <p>- Impersonation of others or sharing false information.</p>
+                <br>
+                
+                <p>
+                  Violation of this policy will result in the immediate suspension or termination of Your account and may be 
+                  reported to appropriate legal authorities.
+                </p>
+              </div>
+              <br>
+              
+              <h3>3. User Responsibilities</h3>
+              <div>You agree to use the App only for lawful purposes and in accordance with this Agreement. You are responsible 
+                for maintaining the security of Your account and for all activities that occur under Your account. You must not 
+                share Your account credentials with others.
+              </div>
+              <br>
+              
+              <h3>4. Intellectual Property</h3>
+              <div>All content within the App, including but not limited to text, graphics, logos, and software, is the 
+                property of HipHopBoomBox and Road Work Media Inc. and is protected by applicable copyright and intellectual 
+                property laws. You are granted no rights or licenses in connection with any of the App’s intellectual property, 
+                except for the limited license granted in Section 1.
+              </div>
+              <br>
+              
+              <h3>5. Termination</h3>
+              <div>The Company may terminate or suspend Your access to the App at any time, without prior notice, for any 
+                reason, including but not limited to a breach of this Agreement. Upon termination, the license granted to You 
+                in this Agreement will immediately cease.
+              </div>
+              <br>
+              
+              <h3>6. Limitation of Liability</h3>
+              <div>To the maximum extent permitted by applicable law, HipHopBoomBox and Road Work Media Inc. shall not be 
+                liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating 
+                to Your use of or inability to use the App.
+              </div>
+              <br>
+              
+              <h3>7. Disclaimer of Warranties</h3>
+              <div>The App is provided on an "as-is" and "as-available" basis without warranties of any kind, either express 
+                or implied. The Company does not warrant that the App will be uninterrupted or error-free.
+              </div>
+              <br>
+              
+              <h3>8. Modifications to the Agreement</h3>
+              <div>HipHopBoomBox and Road Work Media Inc. reserve the right to modify this Agreement at any time. If any 
+                changes are made, We will notify You by posting the revised Agreement within the App or by other communication 
+                methods. Your continued use of the App after such changes constitutes Your acceptance of the revised Agreement.
+              </div>
+              <br>
+              
+              <h3>9. Governing Law</h3>
+              <div>This Agreement shall be governed by and construed in accordance with the laws of Miami Florida , without 
+                regard to its conflict of law principles.
+              </div>
+              <br>
+              
+              <h3>10. Contact Information</h3>
+              <div>
+                If You have any questions about this Agreement, You can contact us at:
+                <p>- Email: support@hiphopboombox.com</p>
+                <p>
+                  <b>- By using the Application You acknowledge that You have read and understand the EULA terms Agreement and agree to be bound by its terms.</b>
+                </p>
+                <!-- <p>
+                  <b>- Objectionable content and abusive behavior will not be tolerated under any circumstances.</b>
+                </p> -->
+              </div>
+              <br>
+              
+            </div>
+					</div>
+
+					<div class="col-12" style="height: 100px;"></div>
+				<% } %>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<%- include("./includes/footer.ejs"); %>
+	</footer>
+
+	<script>
+		const data1 = <%- JSON.stringify(data) %>
+	</script>
+
+	<script type="text/javascript">
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        // console.log(loadingSpinner);
+    
+	    setTimeout(function() {
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
+        }, 3000);
+
+        globalThis.document.addEventListener('DOMContentLoaded', () => {
+        	// const data = data1;
+        	// console.log(data.description);
+
+        	// Function to convert text to HTML
+//           function textToHtml(text) {
+//               // Split text by lines
+//               const lines = text.split('\n');
+
+//               // Initialize an empty array to hold HTML elements
+//               let html = '';
+
+//               // Iterate through each line
+//               for (let line of lines) {
+//                 let content = line;
+
+//                   // Convert *text* to <strong>text</strong>
+//                   content = content.replace(/\*(.*?)\*/g, '<b>$1</b>');
+
+//                   if (line.startsWith('###')) {
+//                       // Heading level 3
+//                       html += `<h3>${line.replace(/^###/, '')}</h3>`;
+//                   } 
+//                   else if (line.startsWith('##')) {
+//                       // Heading level 3
+//                       html += `<h5>${line.replace(/^##/, '')}</h5>`;
+//                   }
+//                   else if (line.trim() === '') {
+//                       // Skip empty lines
+//                       continue;
+//                   } else {
+//                       // Regular paragraph
+//                       html += `<p class="mt-3">${content}</p>`;
+//                   }
+//               }
+
+//               return html;
+//           }
+
+//           // Insert HTML into the content div
+//           document.getElementById('descp').innerHTML = textToHtml(data.description);
+        })
+    </script>
+
+</body>
+
+<%- include("./includes/end.ejs"); %>

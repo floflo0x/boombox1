@@ -1,0 +1,249 @@
+<%- include("./includes/head.ejs", { data2: '' }); %>
+
+<link rel="stylesheet" href="/style.css">
+
+<body>
+	<header>
+		<%- include("./includes/header.ejs"); %>
+	</header>
+
+	<div class="loading-spinner" id="loadingSpinner">
+	    <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	    <div class="spinner"></div>
+  	</div>
+
+	<section>
+		<%- include("./includes/nav1.ejs", { myArray: catData }); %>
+	</section>
+
+	<section>
+		<div class="container bg-light div2 p-0">
+			<div class="row">
+				<% if(data != '') { %>
+					<div class="col-12 col-sm-12 mb-3 text-center">
+						<h2><%= data %></h2>
+					</div>
+
+					<div class="col-12 col-sm-12 mb-3">
+						<div class="p-2" id="descp">
+              <h3>
+                Effective Date: 11-04-2024
+              </h3>
+              <div>
+                These Terms and Conditions ("Terms") govern participation in raffles conducted on the 
+                <span style="font-weight: 600;">HipHopBoomBox</span> app. By entering a raffle, participants ("you") 
+                agree to abide by these Terms.
+              </div>
+              <br>
+              <h3>
+                1. Eligibility
+              </h3>
+              <div>
+                <p>
+                  - You must be at least 18 years of age or the age of majority in your jurisdiction to participate.
+                </p>
+                <p>- Raffles are open only to individuals residing in jurisdictions where such raffles are legal. 
+                It is your responsibility to comply with local laws regarding participation in raffles. </p>
+                <p>- Employees, contractors, or affiliates of <span style="font-weight: 600;">HipHopBoomBox</span>
+                  and their immediate family members are not eligible to participate.</p>
+              </div>
+              <br>
+              <h3>
+                2. No Affiliation with Apple Inc. or Google LLC
+              </h3>
+              <div>
+                <p>- The raffle hosted on <span style="font-weight: 600;">HipHopBoomBox</span> is not sponsored, endorsed, or administered by Apple Inc. 
+                  or Google LLC, nor are they associated with this raffle in any way. All inquiries, concerns, or 
+                  complaints should be directed to <span style="font-weight: 600;">HipHopBoomBox</span> and not to 
+                  Apple or Google.</p>
+              </div>
+              <br>
+              
+              <h3>3. Entry and Participation</h3>
+              <div>
+                <p>
+                  - Each raffle requires a primary entry, which may be free or associated with a designated purchase price.
+                </p>
+                <p>
+                  - Participants can enhance their chances of winning by purchasing additional sneaker sizes at $1.99 
+                  per additional size.
+                </p>
+                <p>
+                  - All entries must be completed within the specified entry period, which will be detailed within 
+                  each raffle event in the <span style="font-weight: 600;">HipHopBoomBox</span> app.
+                </p>
+                <p>
+                  - Entries are final, and <span style="font-weight: 600;">HipHopBoomBox</span> does not offer refunds 
+                  for any purchase related to a raffle.
+                </p>
+              </div>
+              <br>
+              
+              <h3>4. Winner Selection</h3>
+              <div>
+                <p>
+                  -Winners will be chosen at random from eligible entries at the end of the entry period.
+                </p>
+                <p>
+                  - Odds of winning depend on the total number of entries received.
+                </p>
+                <p>
+                  - Winners will be notified through the <span style="font-weight: 600;">HipHopBoomBox</span> app and by the email address associated 
+                  with their account within 72 hours of the drawing. Winners may be required to provide additional 
+                  information to verify their eligibility.
+                </p>
+              </div>
+              <br>
+              
+              <h3>5. Prize Details and Distribution</h3>
+              <div>The Company may terminate or suspend Your access to the App at any time, without prior notice, for any 
+                reason, including but not limited to a breach of this Agreement. Upon termination, the license granted to You 
+                in this Agreement will immediately cease.
+              </div>
+              <br>
+              
+              <h3>6. Privacy and Data Collection</h3>
+              <div>
+                <p>
+                   - By participating in the raffle, you consent to the collection and use of your personal 
+                  information as outlined in the <span style="font-weight: 600;">HipHopBoomBox</span> Privacy Policy.
+                </p>
+                <p>
+                  - Information collected is used solely to administer the raffle, communicate with participants, 
+                  and notify winners.
+                </p>
+              </div>
+              <br>
+              
+              <h3>7. Disqualification</h3>
+              <div>
+                <p>
+                  - <span style="font-weight: 600;">HipHopBoomBox</span> reserves the right to disqualify any participant who is found to 
+                  have violated these Terms or acted fraudulently, including submitting multiple entries using 
+                  false identities or other improper conduct.
+                </p>
+                <p>
+                   - Any attempt to manipulate the raffle process, including unauthorized access or actions, 
+                  may result in immediate disqualification and potential legal action.
+                </p>
+              </div>
+              <br>
+              
+              <h3>8. Liability</h3>
+              <div>
+                <p>
+                  - <span style="font-weight: 600;">HipHopBoomBox</span> is not responsible for any technical failures, lost entries, or other 
+                  factors that may impact the administration, security, or fairness of the raffle.
+                </p>
+                <p>
+                  - By entering, you agree to release <span style="font-weight: 600;">HipHopBoomBox</span>, Apple Inc., and Google LLC from 
+                  any liability, claims, or damages arising out of or related to your participation in the raffle or 
+                  acceptance of any prize.
+                </p>
+              </div>
+              <br>
+              
+              <h3>9. Changes to Terms</h3>
+              <div>
+                <p>
+                  - <span style="font-weight: 600;">HipHopBoomBox</span> reserves the right to modify, suspend, or terminate the raffle or these 
+                  Terms at any time, with or without notice.
+                </p>
+                <p>
+                  - Participants will be bound by the revised Terms, which will be posted within the app if any changes occur.
+                </p>
+              </div>
+              <br>
+              
+              <h3>10. Governing Law</h3>
+              <div>
+                <p>
+                  - These Terms are governed by the laws of [Insert Jurisdiction]. Any disputes arising from the raffle 
+                  shall be resolved exclusively in the courts of Florida 
+                </p>
+              </div>
+              <br>
+              
+              <h3>11. Contact Us</h3>
+              <div>
+                <p>
+                  - For any questions or concerns regarding these Terms or the raffle, please contact our support team at 
+                  <a href="mailto:?to=suppoort@hiphopboombox.com" style="color: black; text-decoration: none; font-weight: 600;">suppoort@hiphopboombox.com</a>
+                </p>
+              </div>
+              <br>
+              
+            </div>
+					</div>
+
+					<div class="col-12" style="height: 100px;"></div>
+				<% } %>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<%- include("./includes/footer.ejs"); %>
+	</footer>
+
+	<script>
+		const data1 = <%- JSON.stringify(data) %>
+	</script>
+
+	<script type="text/javascript">
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        // console.log(loadingSpinner);
+    
+	    setTimeout(function() {
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
+        }, 3000);
+
+        globalThis.document.addEventListener('DOMContentLoaded', () => {
+        	// const data = data1;
+        	// console.log(data.description);
+
+        	// Function to convert text to HTML
+//           function textToHtml(text) {
+//               // Split text by lines
+//               const lines = text.split('\n');
+
+//               // Initialize an empty array to hold HTML elements
+//               let html = '';
+
+//               // Iterate through each line
+//               for (let line of lines) {
+//                 let content = line;
+
+//                   // Convert *text* to <strong>text</strong>
+//                   content = content.replace(/\*(.*?)\*/g, '<b>$1</b>');
+
+//                   if (line.startsWith('###')) {
+//                       // Heading level 3
+//                       html += `<h3>${line.replace(/^###/, '')}</h3>`;
+//                   } 
+//                   else if (line.startsWith('##')) {
+//                       // Heading level 3
+//                       html += `<h5>${line.replace(/^##/, '')}</h5>`;
+//                   }
+//                   else if (line.trim() === '') {
+//                       // Skip empty lines
+//                       continue;
+//                   } else {
+//                       // Regular paragraph
+//                       html += `<p class="mt-3">${content}</p>`;
+//                   }
+//               }
+
+//               return html;
+//           }
+
+//           // Insert HTML into the content div
+//           document.getElementById('descp').innerHTML = textToHtml(data.description);
+        })
+    </script>
+
+</body>
+
+<%- include("./includes/end.ejs"); %>

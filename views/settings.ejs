@@ -1,0 +1,62 @@
+<%- include("./includes/head.ejs", { data2: '' }); %>
+
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/all.css">
+
+<body>
+	<header>
+		<%- include("./includes/header.ejs"); %>
+	</header>
+    
+  <div class="loading-spinner" id="loadingSpinner">
+	  <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	  <div class="spinner"></div>
+  </div>
+    
+  <section>
+    <div class="container bg-light" style="margin-top: 70px;">
+      <div class="row">
+        <div class="col-12 col-lg-3 div15"></div>
+        
+        <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center flex-column pt-5 pb-5 pe-2 ps-2">
+          <form action="/settings" method="POST">
+            <button type="submit" class="btn btn-outline-success mb-4">
+              Delete Account
+            </button>
+          </form>
+          
+          <form action="/logout" method="GET">
+            <button type="submit" class="btn btn-outline-success">
+              LOGOUT
+            </button>
+          </form>
+
+        </div>
+        
+        <div class="col-12 col-lg-3 div15"></div>
+      </div>
+    </div>
+  </section>
+    
+  <section>
+    <div class="container bg-light" style="height: 100px;"></div>
+    </div>
+  </section>
+    
+  <footer>
+		<%- include("./includes/footer.ejs"); %>
+	</footer>
+
+	<script type="text/javascript">    
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        // console.log(loadingSpinner);
+    
+	      setTimeout(function() {
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
+        }, 5000);
+  </script>
+</body>
+
+<%- include("./includes/end.ejs"); %>
