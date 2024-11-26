@@ -1,0 +1,250 @@
+<%- include("./includes/head.ejs", { data2: '' }); %>
+
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/login.css">
+
+<body>
+	<header>
+		<%- include("./includes/header.ejs"); %>
+	</header>
+
+	<div class="loading-spinner" id="loadingSpinner">
+	    <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	    <div class="spinner"></div>
+  </div>
+
+  <section>
+		<div class="container border-0 p-0 loginDiv1">
+			<div class="row justify-content-center">
+		        <div class="col-12 col-lg-12 text-center">
+		          	<% if(errorMessage) { %>
+		            	<div class="alert alert-danger" role="alert"><%= errorMessage %></div>
+		          	<% } %>
+		        </div>
+
+		        <div class="col-12 col-lg-2"></div>
+
+				<div class="col-12 col-lg-8 p-4 border-0">
+            		<h1 class="text-center text-uppercase"><%= lang.login_h1 %></h1>
+            		<h5 class="text-center">
+            			<%= lang.register_h1 %>
+            			<a href="/login" style="text-decoration: none; color: red;"><%= lang.register_h2 %></a>
+            		</h5>
+            		<form action="/register" method="POST" id="form" novalidate>
+            			<div class="mt-4 mb-1 image-upload">
+			                <label for="fileInput" class="image-upload-label">
+			                    <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)">
+			                    <div class="image-preview" id="imagePreview"></div>
+			                    <input type="hidden" name="image" id="formNameFile" value="<%= oldInput.image %>"
+			                </label>
+			            </div>
+			            <div class="mb-1">
+						    <label for="exampleInputName1" class="form-label"></label>
+						    <input type="text" name="name" class="form-control p-3" id="exampleInputName1" placeholder="<%= lang.register_h6 %>" 
+						    value="<%= oldInput.name %>">
+						</div>
+						<div class="mb-1">
+						    <label for="exampleInputEmail1" class="form-label"></label>
+						    <input type="email" name="email" class="form-control p-3" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="<%= lang.register_h4 %>" value="<%= oldInput.email %>">
+						</div>
+						<div class="mb-1">
+						    <label for="exampleInputPassword1" class="form-label"></label>
+						    <div class="input-group">
+						        <input type="password" name="password" class="form-control p-3" id="exampleInputPassword1" placeholder="<%= lang.register_h5 %>">
+						        <button type="button" class="btn pBtn" style="background: white; border: none; padding: none; border-top: 1px solid lightgrey; border-bottom: 1px solid lightgrey;">
+						            <i class="fa-regular fa-eye-slash"></i>
+						        </button>
+						    </div>
+						</div>
+						<div class="mb-1">
+						    <label for="exampleInputPassword2" class="form-label"></label>
+						    <div class="input-group">
+						        <input type="password" name="cpassword" class="form-control p-3" id="exampleInputPassword2" placeholder="<%= lang.register_h7 %>">
+						        <button type="button" class="btn cpBtn" style="background: white; border: none; padding: none; border-top: 1px solid lightgrey; border-bottom: 1px solid lightgrey;">
+						            <i class="fa-regular fa-eye-slash"></i>
+						        </button>
+						    </div>
+						</div>
+						<div class="mt-5">
+					  		<button type="submit" 
+					  			class="btn btn-dark text-white w-100" 
+					  			id="subBtn"
+					  		>
+					  			<%= lang.register_h3 %>
+					  		</button>
+					  	</div>
+					</form>
+            	</div>
+
+				<div class="col-12 col-lg-2"></div>
+		    </div>
+		</div>
+	</section>
+
+	<section>
+	    <%- include("./includes/lang_select.ejs"); %>
+  </section>
+    
+  <footer>
+		<%- include("./includes/footer.ejs"); %>
+	</footer>
+
+	<script>
+		let oi = '<%= JSON.stringify(oldInput) %>';
+	</script>
+
+	<script>
+  		window.addEventListener('load', function () {
+	      // console.log("hii...");
+
+	      const loadingSpinner = document.getElementById('loadingSpinner');
+	        
+	      loadingSpinner.style.display = 'none';
+	    });
+
+	    const submitButton = globalThis.document.getElementById('subBtn');
+
+	    const imagePreview = document.getElementById('imagePreview');
+
+	    const oldInput = JSON.parse(oi.replace(/&#34;/g, '"'));
+
+	    // console.log(oldInput, oldInput.image, oldInput.image == '');
+
+	    if (oldInput.image !== '') {
+	    	imagePreview.style.backgroundImage = `url(https://api.hiphopboombox.com/api/uploads/${oldInput.image})`;
+	    	imagePreview.innerHTML = '';
+	    }
+
+	    function previewImage(event) {
+			const file = event.target.files[0];
+			    
+			if (file) {
+			    const reader = new FileReader();
+
+			    reader.onload = function(e) {
+			        imagePreview.style.backgroundImage = `url(${e.target.result})`;
+			        imagePreview.innerHTML = ''; // Clear the placeholder text
+			    }
+
+			    reader.readAsDataURL(file);
+
+			    function isVideoExtension(extension) {
+		            const videoExtensions = [".png", ".jpg", ".jpeg", ".webp"];
+		            return videoExtensions.includes(extension.toLowerCase());
+		        }
+
+		        const extension = file.name.match(/\.([^\.]+)$/);
+
+		        if (extension) {
+		          	const extractedExtension = extension[1].toLowerCase(); // Convert to lowercase for case-insensitive comparison
+		          	const isVideo = isVideoExtension("." + extractedExtension); // Add dot prefix
+		          	// console.log(isVideo);
+		          	if (!isVideo) {
+		            	alert('Please select a image to upload.');
+		            	return;
+		          	}
+
+		          	else {
+		          		submitButton.style.display = 'none';
+
+		          		const formdata = new FormData();
+		        		formdata.append("fileToUpload", file);
+
+				        const requestOptions = {
+				            method: "POST",
+				            body: formdata,
+				            redirect: "follow"
+				        };
+
+				        fetch("https://api.hiphopboombox.com/api/uploadImage.php", requestOptions)
+				            .then((response) => response.json())
+				            .then((result) => {
+				              	// console.log(result);
+
+				              	if (result.isSuccess == true) {
+				              		document.getElementById('formNameFile').value = result.image;
+				              		submitButton.style.display = 'block';
+				              	}
+
+				              	else {
+				              		alert(result.errorMsg);
+				              		return;
+				              	}
+				            })
+				            .catch(error => {
+				            	console.log(error);
+				            })
+		          	}
+		        } 
+
+		     	else {
+		          	alert('Please select a image to upload.');
+		           	return;
+		        }
+			}
+
+			else {
+				alert('Please select a image to upload.');
+			}
+		}
+
+	    globalThis.document.addEventListener('DOMContentLoaded', () => {
+	    	const form = document.getElementById('form');
+
+	    	document.querySelector('.pBtn').addEventListener('click', (e) => {
+			    const inputGroup = e.target.closest('.input-group');
+			    const input = inputGroup.querySelector('input');
+			    const button = inputGroup.querySelector('button');
+
+			    const type = input.type === 'password' ? 'text' : 'password';
+			    input.type = type;
+
+			    if (type === 'text') {
+			        button.innerHTML = '<i class="fa-regular fa-eye"></i>'; // Eye icon
+			    } else {
+			        button.innerHTML = '<i class="fa-regular fa-eye-slash"></i>'; // Eye-slash icon
+			    }
+			});
+
+			document.querySelector('.cpBtn').addEventListener('click', (e) => {
+			    const inputGroup = e.target.closest('.input-group');
+			    const input = inputGroup.querySelector('input');
+			    const button = inputGroup.querySelector('button');
+
+			    const type = input.type === 'password' ? 'text' : 'password';
+			    input.type = type;
+
+			    if (type === 'text') {
+			        button.innerHTML = '<i class="fa-regular fa-eye"></i>'; // Eye icon
+			    } else {
+			        button.innerHTML = '<i class="fa-regular fa-eye-slash"></i>'; // Eye-slash icon
+			    }
+			});
+
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();
+
+				// console.log(form.password.value.trim());
+				// console.log(form.cpassword.value.trim());
+
+				if (form.password.value.trim() === '' || form.cpassword.value.trim() === '') {
+				    alert("Both password fields are required.");
+				    form.password.value = '';
+				    form.cpassword.value = '';
+				}
+
+				else if (form.password.value.trim() !== form.cpassword.value.trim()) {
+					alert("Password and Confirm Password must match...");
+					form.password.value = '';
+					form.cpassword.value = '';
+				}
+
+				else {
+					form.submit();
+				}
+			})
+		})
+  	</script>
+</body>
+
+<%- include("./includes/end.ejs"); %>

@@ -1,0 +1,358 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #f8f9fa;
+}
+
+.cDiv1 {
+	padding: 0;
+	margin-top: 50px;
+}
+
+.cDiv2, .cDiv3 {
+	display: flex;
+	margin-bottom: 40px;
+}
+
+h4 {
+	align-self: end;
+}
+
+.loading-spinner {
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoSp {
+  display: block;
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.cImg1 {
+	width: 70px;
+	height: 70px;
+	border-radius: 50px;
+	margin-right: 20px;
+}
+
+.cImg2 {
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+	margin-right: 20px;
+}
+
+.cInput {
+  border: 0;
+  background: transparent;
+  outline: 0;
+  border-bottom: 1px solid black;
+  padding: 1px;
+  width: 600px;
+  color: black;
+  padding-bottom: 5px;
+}
+
+.cInput::placeholder {
+  padding-bottom: 20px !important; /* Padding for placeholder text */
+	color: rgba(0, 0, 0, 0.7);
+}
+
+.cInput:not(:placeholder-shown) {
+  padding-bottom: 1px; /* Reset padding when there's text */
+}
+
+.cInput2 {
+	border: 0;
+  background: transparent;
+  outline: 0;
+  border-bottom: 1px solid black;
+  padding: 1px;
+  width: 600px;
+  color: black;
+  padding-bottom: 5px;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.cimgDiv {
+	font-size: 20px;
+	margin-right: 30px;
+	border: 1px solid black;
+	border-radius: 50px;
+	padding: 15px;
+}
+
+.cDiv8 {
+	text-wrap: wrap;
+	word-break: break-word;
+	font-size: 13px;
+	letter-spacing: 0.7px;
+}
+
+.cDiv9 {
+	margin: 10px 0 0 0;
+}
+
+.cBtn1 {
+	border: 0;
+	background: transparent;
+	color: black;
+}
+
+.cReply {
+	display: none;
+	margin: 10px 0;
+}
+
+.like_btn, .dislike_btn, .reply_like_btn, .reply_dislike_btn {
+	border: 0;
+	background: transparent;
+	color: black;
+}
+
+.cDiv6 {
+	width: 35%;
+}
+
+.cDiv5 {
+	margin-bottom: 30px;
+}
+
+.cDiv10 {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.replyBtn {
+	background: transparent;
+	color: black;
+	border: 0;
+}
+
+.cDiv11 {
+	display: none;
+}
+
+.cDiv11.open {
+  display: block; /* Show the open reply div */
+}
+
+#watch_end_of_document {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100px;
+}
+
+.loader {
+  display: flex;
+  justify-content: space-between;
+  width: 80px; /* Adjust size as needed */
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: black; /* Dot color */
+  animation: bounce 1.4s infinite;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+.toggle-button {
+	background: transparent;
+	border: none;
+	padding: 0;
+}
+
+.reply_loading {
+	display: none;
+	color: black;
+}
+
+.cName, .cName2 {
+	font-weight: 600;
+}
+
+.cDate, .cDate2 {
+	font-size: 12px;
+}
+
+#button-container {
+  background-color: black;
+  padding: 10px; /* Optional: Add padding to adjust the size of the blue background */
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+#button-container button {
+  border: none;
+  background: black;
+  color: white;
+}
+
+.btn_deactive {
+	display: none;
+}
+
+.btn_active {
+	display: inline-block;
+}
+
+@media (max-width: 600px) {
+	.cDiv1 {
+		padding: 0 20px;
+	}
+
+	.cimgDiv {
+		font-size: 15px;
+		margin-right: 10px;
+		border: 1px solid black;
+		border-radius: 50px;
+		padding: 5px;
+	}
+
+	.cInput {
+		width: 500px;
+	}
+
+	.cInput2 {
+		width: 450px;
+	}
+}
+
+@media (max-width: 500px) {
+	.cInput {
+		width: 335px;
+	}
+
+	.cDiv6 {
+		width: 100%;
+	}
+
+	.cDiv10 {
+		margin-left: 5px;
+	}
+
+	.cImg1 {
+		width: 55px;
+		height: 55px;
+		margin-right: 10px;
+	}
+
+	.cImg2 {
+		width: 40px;
+		height: 40px;
+		margin-right: 10px;
+	}
+
+	.crDiv1 {
+		margin-left: 20px;
+	}
+
+	.cInput2 {
+		width: 320px;
+	}
+}
+
+@media (max-width: 414px) {
+	.cInput {
+		width: 300px;
+	}
+
+	.cInput2 {
+		width: 300px;
+	}
+}
+
+@media (max-width: 400px) {
+	.cInput {
+		width: 270px;
+	}
+
+	.cInput2 {
+		width: 250px;
+	}
+}
+
+@media (max-width: 375px) {
+	.cInput {
+		width: 280px;
+	}
+
+	.cInput2 {
+		width: 260px;
+	}
+}
+
+@media (max-width: 360px) {
+	.cInput {
+		width: 250px;
+	}
+
+	.cInput2 {
+		width: 240px;
+	}
+}
+
+@media (max-width: 320px) {
+	.cInput {
+		width: 230px;
+	}
+
+	.cInput2 {
+		width: 210px;
+	}
+}

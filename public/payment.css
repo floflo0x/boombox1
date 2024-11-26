@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    text-decoration: none;
+    color: #7CFC00;
+}
+
+.nav-link:hover i {
+    color: #7CFC00;
+}
+
+.nav-link:hover span {
+    color: #7CFC00 !important;
+}
+
+.nav-link .activeNav {
+    color: #7CFC00 !important;
+}
+
+@media (max-width: 2000px) {
+    .container-fluid .nav-link {
+        margin-right: 40px;
+        margin-left: 20px;
+    }
+
+    .cCard {
+        margin-right: 30px;
+    }
+}
+
+@media (max-width: 800px) {
+    body {
+        padding: 0 0 0 15px !important;
+    }
+
+    .container {
+        margin-left: 15px;
+    }
+
+    .container-fluid .nav-link {
+        margin-right: 40px;
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    body {
+        padding: 0 0 0 10px !important;
+    }
+
+    .container {
+        margin-left: 2px;
+    }
+
+    .container-fluid .nav-link {
+        margin-right: 20px;
+        margin-left: -10px;
+    }
+
+    .cCard {
+        margin-right: 0px;
+    }
+}
+
+@media (max-width: 430px) {
+    body {
+        padding: 0 0 0 11px !important;
+    }
+
+    .container {
+        margin-left: 1.49px;
+    }
+
+    .container-fluid .nav-link {
+        margin-right: 10px;
+        margin-left: -6px;
+    }
+}
+
+@media (max-width: 425px) {
+    body {
+        padding: 0 0 0 10px !important;
+    }
+
+    .container {
+        margin-left: 2px;
+    }
+
+    .container-fluid .nav-link {
+        margin-right: 8px;
+        margin-left: -5px;
+    }
+}
+
+@media (max-width: 412px) {
+    body {
+        padding: 0 0 0 17px !important;
+    }
+
+    .container {
+        margin-left: 2px;
+    }
+
+    .container-fluid .nav-link {
+        margin-right: 8px;
+        margin-left: -5px;
+    }
+}
+
+@media (max-width: 390px) {
+    body {
+        padding: 0 0 0 10px !important;
+    }
+
+    .container {
+        margin-left: 3px;
+    }
+
+    .container-fluid .nav-link {
+        margin-right: 5px;
+        margin-left: -5px;
+    }
+}
+
+@media (max-width: 375px) {
+    .container {
+        margin-left: 5px;
+    }
+
+    .container-fluid .nav-link {
+        margin-right: 5px;
+        margin-left: -5px;
+    }
+}
+
+@media (max-width: 325px) {
+    .container {
+        margin-left: 11px;
+    }
+
+    .container-fluid .nav-link {
+        margin-right: 5px;
+        margin-left: -5px;
+    }
+}
