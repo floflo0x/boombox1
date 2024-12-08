@@ -1,0 +1,44 @@
+.blog_div3 {
+	height: 400px;
+}
+
+.blog_div3 img {
+	height: 100%;
+	object-fit: scale-down;
+}
+
+.blog_div2, .blog_div3, .blog_div4 {
+	margin-bottom: 30px;
+}
+
+#button-container {
+  background-color: black;
+  padding: 10px; /* Optional: Add padding to adjust the size of the blue background */
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+#button-container button {
+  border: none;
+  background: black;
+  color: white;
+}
+
+.btn_deactive {
+	display: none;
+}
+
+.btn_active {
+	display: inline-block;
+}
+
+@media (max-width: 500px) {
+	.blog_div2, .blog_div3, .blog_div4 {
+		margin-bottom: 10px;
+	}
+
+	.blog_div3 img {
+		height: 100%;
+		object-fit: fill;
+	}
+}

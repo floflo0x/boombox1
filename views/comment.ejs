@@ -1,0 +1,162 @@
+<%- include("./includes/head.ejs", { data2: '' }); %>
+
+<link rel="stylesheet" href="/comment.css">
+
+<body class="bg-light" style="padding: 0; margin: 0;">
+
+	<header></header>
+
+	<div class="loading-spinner" id="loadingSpinner">
+	    <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	    <div class="spinner"></div>
+  	</div>
+
+	<section>
+		<div class="container cDiv1">
+			<div class="row">
+				<div class="col-12 col-sm-12 cDiv2 border-0">
+					<div class="me-3">
+						<a href="/<%= n %>/<%= t %>/<%= d %>">
+							<i class="fa-solid fa-angle-left fa-2xl" style="color: black;"></i>
+						</a>
+					</div>
+					<h4>POST</h4>
+				</div>
+
+				<div class="col-12 col-sm-12 cDiv3 border-0 p-0">
+					<div class="cimgDiv text-center">
+						<i class="fa-solid fa-user-pen" style="color: black;"></i>
+					</div>
+					<form action="/addPost" method="post" id="cSubmit">
+						<input type="text" name="comment" class="cInput" placeholder="Add a comment..." />
+						<input type="hidden" name="uid" value="1" />
+						<input type="hidden" name="id" value="<%= id %>" />
+						<input type="hidden" name="n" value="<%= n %>" />
+						<input type="hidden" name="t" value="<%= t %>" />
+						<input type="hidden" name="d" value="<%= d %>" />
+						<button type="submit" id="cfBtn" style="border: 0; background: transparent;"><i class="fa-solid fa-square-arrow-up-right fa-2xl" style="color: black;"></i></button>
+					</form>
+				</div>
+
+				<% if (comments != '') { %>
+					<div class="col-12 col-sm-12 cDiv4 border-0 p-0">
+						<% comments.forEach(i => { %>
+							<div class="cDiv5 d-flex">
+								<% 
+								  let imageUrl = ''; // Default URL
+								  if (i.image) { // Check if i.image is not empty
+								    if (!i.image.includes('www.w3schools') && !i.image.includes('static.worldstarhiphop')) {
+								      imageUrl = `https://api.hiphopboombox.com/api/uploads/${i.image}`;
+								    } else {
+								    	imageUrl = i.image;
+								  	}
+								  }
+								  else {
+								  	const firstLetter = i.name ? i.name.charAt(0).toUpperCase() : 'U';
+    								imageUrl = `https://dummyimage.com/100x100/000/fff&text=${firstLetter}`;
+								  }
+								%>
+								<img src="<%= imageUrl %>" alt="..." class="cImg1" loading="lazy" />
+								<div class="cDiv6 d-flex flex-column p-0">
+									<div class="cDiv7 d-flex align-items-center">
+										<div class="me-3 cName"><%= i.name %></div>
+										<div class="text-secondary cDate"><%= i.date %></div>
+									</div>
+									<div class="cDiv8">
+										<div class="text-content" 
+											data-full-text="<%= i.text %>"
+										>
+											<%= i.text %>
+										</div>
+										<button class="toggle-button" style="display: none;">
+											<i class="fa-solid fa-up-down-left-right" style="color: black;"></i>
+										</button>
+									</div>
+									<div class="cDiv9 border-0 d-flex justify-content-around align-items-center">
+										<button class="like_btn" data-btn-id="<%= i.id %>">
+											<i class="fa-regular fa-thumbs-up me-1" style="color: black;"></i>
+											<span class="like_text" id="like_text_<%= i.id %>"><%= i.likes %></span>
+										</button>
+										<button class="dislike_btn" data-btn-id="<%= i.id %>">
+											<i class="fa-regular fa-thumbs-down me-1" style="color: black;"></i>
+											<span class="dislike_text" id="dislike_text_<%= i.id %>"><%= i.dislikes %></span>
+										</button>
+										<button 
+											class="cBtn1" 
+											data-btn-id="<%= i.id %>"
+										>Reply</button>
+									</div>
+									<div class="cReply" id="cReply_<%= i.id %>">
+										<form class="d-flex rForm" action="/v1/addReply" method="post">
+											<input type="text" name="reply" class="cInput2" placeholder="Add a reply..." />
+											<input type="hidden" name="cid" value="<%= i.id %>" />
+											<input type="hidden" name="id" value="<%= id %>" />
+                      <input type="hidden" name="n" value="<%= n %>" />
+						          <input type="hidden" name="t" value="<%= t %>" />
+                      <input type="hidden" name="d" value="<%= d %>" />
+	                    <button type="submit" id="rfBtn" style="border: 0; background: transparent;">
+	                    	<i class="fa-solid fa-square-arrow-up-right fa-2xl" style="color: black;"></i>
+	                    </button>
+										</form>
+									</div>
+									<div class="cDiv10">
+										<button class="replyBtn mb-2" data-btn-id="<%= i.id %>">
+											<i class="fa-solid fa-angle-down me-2" id="carteDown_<%= i.id %>" 
+												style="color: black;"
+											></i>Show Replies
+										</button>
+
+										<div class="cDiv11" id="cDiv11_<%= i.id %>">
+										</div>
+									</div>
+								</div>
+							</div>
+						<% }) %>
+						<div id="another"></div>
+				    	<div id="watch_end_of_document"> 
+				   			<div class="loader">
+							    <div class="dot"></div>
+							    <div class="dot"></div>
+							    <div class="dot"></div>
+							</div>
+				    	</div>
+					</div>
+				<% } %>
+			</div>
+		</div>
+	</section>
+
+	<footer></footer>
+
+	<script>
+		const comment = <%- JSON.stringify(comments) %>;
+		let count = <%- count %>;
+		const id = <%- id %>;
+    const n = '<%- n %>';
+    const t = '<%- t %>';
+    const d = '<%- d %>';
+    const usa = '<%- usa %>';
+	</script>
+
+	<script type="text/javascript">
+// 		window.addEventListener('load', function () {
+// 	      // console.log("hii...");
+
+// 	      const loadingSpinner = document.getElementById('loadingSpinner');
+	        
+// 	      loadingSpinner.style.display = 'none';
+// 	    });
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        // console.log(loadingSpinner);
+    
+	      setTimeout(function() {
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
+        }, 3000);
+	</script>
+
+	<script src="/script3.js"></script>
+</body>
+
+<%- include("./includes/end.ejs"); %>

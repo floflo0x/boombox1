@@ -1,0 +1,169 @@
+<%- include("./includes/head.ejs", { data2: '' }); %>
+  
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/payment.css">
+
+<body class="bg-light">
+
+	<header class="header">
+    <div class="header-inner">
+    	  <div class="container-fluid">
+    	    <nav class="navbar bg-light fixed-top">
+	    	    <div class="container-fluid mt-3 mb-3 justify-content-center display-6">
+	    	      	<b style="background: black;
+	            		-webkit-background-clip: text;
+	            		-webkit-text-fill-color: transparent;
+	            		font-family: 'Onest'"
+	              	>Payment</b>
+	    	    </div>
+    	  	</nav>
+    	  </div>
+    	</div>
+  </header>
+
+  <div class="loading-spinner" id="loadingSpinner">
+	    <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	    <div class="spinner"></div>
+   </div>
+
+	<section>
+		<div class="container border-0" style="margin-top: 90px; height: 100%;">
+			<div class="row justify-content-center">
+				<div class="col-12 text-center mt-2">
+		          	<% if(errorMessage) { %>
+		            	<div class="alert alert-danger" role="alert">
+		            		<%= errorMessage %>
+		            	</div>
+		          	<% } %>
+        		</div>
+
+        <div class="col-12 col-sm-12 col-md-3 col-lg-1"></div>
+				<div class="col-12 col-sm-12 col-md-6 col-lg-10" id="payBox1">
+					<!-- <h5 class="mb-4 text-center">Select a payment method</h5> -->
+					<div class="mb-2 mb-5">
+						<form class="d-flex" role="search">
+				        	<input class="form-control me-2" id="search" type="search" placeholder="search..." aria-label="Search">
+				      	</form>
+					</div> 
+					<form action="/pay" method="POST" id="form">
+            <input type="hidden" name="uId" value="<%= uId %>" />
+            <input type="hidden" name="rId" value="<%= rId %>" />
+            <input type="hidden" name="size" value="<%= size %>" />
+            <input type="hidden" name="gender" value="<%= gender %>" />
+            
+						<div class="d-lg-flex flex-wrap">
+							<% currency.forEach(i => { %>
+								<div class="flex-1 form-check mb-4 p-0 border-0 cCard">
+									<button type="submit" data-target-id="<%= i.code %>" name="currency" value="<%= i.code %>" class="btn p-0" style="margin: 0;">
+										<img src="https://nowpayments.io<%= i.imgUrl %>" width="50" height="50" /><span class="p-2"><%= i.name %></span>
+									</button>
+								</div>
+							<% }) %>
+						</div>
+					</form>
+				</div>
+				<div class="col-12 col-sm-12 col-md-3 col-lg-1"></div>
+      </div>
+    </div>
+	</section>
+                    
+  <section>
+  		<div class="container" style="height: 100px;"></div>
+  </section>
+                    
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col" style="background: white;">
+          <nav class="navbar fixed-bottom bg-light border">
+            <div class="container div6">
+              <a class="navbar-brand" href="/">
+                <img src="https://api.hiphopboombox.com/api/uploads/hiphop2.jpeg" alt="" height="40" />
+              </a>
+
+              <div classs="div9">
+                <a href="/privacy" class="footer_a">
+                  <%= lang.footer_h2 %>
+                </a>
+                <a href="/terms" class="footer_a">
+                  <%= lang.footer_h3 %>
+                </a>
+                <a href="/dmca" class="footer_a">
+                  <%= lang.footer_h4 %>
+                </a>
+                <a href="/eula" class="footer_a">
+                  <%= lang.footer_h5 %>
+                </a>
+                <a href="/raffle" class="footer_a">
+                  <%= lang.footer_h6 %>
+                </a>
+               </div>
+
+              <div></div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+	<script>
+		window.addEventListener('load', function () {
+	      // console.log("hii...");
+	      // Get the loading spinner element
+	      const loadingSpinner = document.getElementById('loadingSpinner');
+	        
+	      // Hide the loading spinner
+	      loadingSpinner.style.display = 'none';
+	    });
+	</script>
+
+	<script>
+		globalThis.document.addEventListener('DOMContentLoaded', () => {
+    		const searchInput = document.getElementById("search");
+    		const cards = document.querySelectorAll(".cCard");
+
+    		// console.log(searchInput, cards);
+
+    		searchInput.addEventListener("input", () => {
+      			const searchTerm = searchInput.value.toLowerCase();
+
+      			// console.log(searchTerm);
+
+      			cards.forEach(card => {
+      				const button = card.querySelector('button');
+            		const dataTargetId = button.getAttribute('data-target-id').toLowerCase();
+            		const spanText = button.querySelector('span').textContent.toLowerCase();
+
+            		// console.log(dataTargetId, spanText);
+
+            		if (spanText.includes(searchTerm) || dataTargetId.includes(searchTerm)) {
+            		  card.style.display = "block";
+			        } else {
+			          card.style.display = "none";
+			        }
+      			})
+    		})
+
+			function changeIconColor(element) {
+		        // Remove 'activeNav' class from all links
+		        sdocument.querySelectorAll('.nav-link i').forEach(icon => {
+			        icon.style.color = '#ffffff';
+			    });
+			    document.querySelectorAll('.nav-link span').forEach(text => {
+			        text.style.color = 'white';
+			    });
+
+			    // Set the clicked icon and text to green
+			    let icon = link.querySelector('i');
+			    icon.style.color = '#7CFC00';
+
+			    let text = link.querySelector('span');
+			    text.style.color = '#7CFC00';
+			}
+		})
+	</script>	
+
+</body>
+
+<%- include("./includes/end.ejs"); %>

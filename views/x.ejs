@@ -1,0 +1,137 @@
+<%- include("./includes/head.ejs", { data2: '' }); %>
+
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/bData.css">
+
+<body>
+	<header>
+		<%- include("./includes/header.ejs"); %>
+	</header>
+
+	<div class="loading-spinner" id="loadingSpinner">
+	  <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	  <div class="spinner"></div>
+  </div>
+
+	<section>
+		<div class="container-fluid div1 bg-light d-none">
+			<div class="row">
+        <div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;"></div>
+
+				<div class="col-12 col-sm-12 col-md-8 nav1">
+					<% catData.forEach((i, index) => { %>
+						<a href="/blogNews/<%= i.id %>" class="nav1_btns"><%= i.name %></a>
+					<% }) %>
+				</div>
+				
+				<div class="col-12 col-md-2" style="background: #f0f0f0;"></div>
+
+        <div class="col-12 col-md-2" style="background: #f0f0f0;"></div>
+        <div class="col-12 col-md-8" style="height: 20px; background: lightgray;"></div>
+        <div class="col-12 col-md-2" style="background: #f0f0f0;"></div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container-fluid blog_div1" style="margin-top: 80px;">
+			<div class="row">
+				<% if (post != '') { %>
+					<% post.forEach(i => { %>
+		        <div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;"></div>
+						
+						<div class="col-12 col-sm-12 col-md-8 blog_div2">
+							<h2><%= i.title %></h2>
+						</div>
+
+						<div class="col-12 col-md-2 rightAds" style="background: #f0f0f0;">
+		        </div>
+
+		        <div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;">
+		        </div>
+
+						<div class="col-12 col-sm-12 col-md-8 blog_div3">
+							<% 
+								let imageUrl = ''; // Default URL
+								if (i.image) { // Check if i.image is not empty
+								    if (!i.image.includes('www.w3schools') && !i.image.includes('static.worldstarhiphop')) {
+								      imageUrl = `https://api.hiphopboombox.com/api/uploads/${i.image}`;
+								    } else {
+								    	imageUrl = i.image;
+								  	}
+								}
+							%>
+							<img src="<%= imageUrl %>" 
+								alt="Blog Image" 
+								class="img-fluid" width="100%" height="100%">
+						</div>
+
+						<div class="col-12 col-md-2 rightAds" style="background: #f0f0f0;">
+		        </div>
+
+		        <div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;">
+		        </div>
+
+						<div class="col-12 col-sm-12 col-md-8 text-start blog_div4">
+							<p class="blog_date text-secondary"><%= i.date %></p>
+						</div>
+
+						<div class="col-12 col-md-2 rightAds" style="background: #f0f0f0;">
+		        </div>
+
+		        <div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;">
+		        </div>
+
+						<div class="col-12 col-sm-12 col-md-8 mb-3"><%= i.des %></div>
+
+						<div class="col-12 col-md-2 rightAds" style="background: #f0f0f0;">
+		        </div>
+					<% }) %>
+				<% } %>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container" style="height: 100px;"></div>
+	</section>
+
+	<section>
+	  <%- include("./includes/lang_select.ejs"); %>
+  </section>
+
+	<footer>
+		<%- include("./includes/footer.ejs"); %>
+	</footer>
+
+	<script type="text/javascript">    
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      // console.log(loadingSpinner);
+    
+	    setTimeout(function() {
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
+        }, 5000);
+
+	    globalThis.document.addEventListener('DOMContentLoaded', () => {
+	    	const blogPostDate = document.querySelectorAll('.blog_date');
+	    	
+		    function formatDate(dateString) {
+			    const date = new Date(dateString);
+			    // Options for formatting the date
+			    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+			    // Format the date
+			    const formattedDate = date.toLocaleDateString('en-US', options);
+
+			    return formattedDate;
+				}
+
+        blogPostDate.forEach(i => {
+          i.textContent = formatDate(i.textContent.trim());
+        })
+      })
+	</script>
+</body>
+
+<%- include("./includes/end.ejs"); %>

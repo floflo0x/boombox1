@@ -1,0 +1,975 @@
+<%- include("./includes/head.ejs", { data2: showData }); %>
+  
+<link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/all.css">
+
+<body class="bg-light" style="padding: 0; margin: 0;">
+<!--   <style>
+    body {
+      background: #f8f9fa;
+      padding: 0;
+      margin: 0;
+    }
+  </style> -->
+  
+	<header>
+		<%- include("./includes/header.ejs"); %>
+	</header>
+
+	<div class="loading-spinner" id="loadingSpinner">
+	  <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	  <div class="spinner"></div>
+  	</div>
+
+    <section>
+		<div class="container-fluid bg-light div1 p-0 border-0">
+			<div class="row">
+                <div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;"></div>
+
+				<div class="col-12 col-sm-12 col-md-8 nav1 border-0">
+					<% catData.forEach((i, index) => { %>
+						  <a href="/filter/<%= i.id %>?name=<%= i.name %>" class="nav1_btns" style="border: 1px solid black; border-radius: 50px;"><%= i.name %></a>
+          			<% }) %>
+				</div>
+				
+				<div class="col-12 col-md-2" style="background: #f0f0f0;"></div>
+
+				<div class="col-12 col-md-2" style="background: #f0f0f0;"></div>
+				<div class="col-12 col-md-8" style="height: 20px; background: lightgray;"></div>
+				<div class="col-12 col-md-2" style="background: #f0f0f0;"></div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container-fluid bg-light div14">
+		    <div class="row">
+		    	<% if (showData.length >= 1) { %>
+                    <div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;"></div>
+            
+		    		<div class="col-12 col-sm-12 col-md-5 pt-4 border-0">
+		    			<% showData.forEach(i => { %>
+		              <% if (i.link !== '' && i.link.includes("youtube")) { 
+                        let url = new URL(i.link);
+                        let videoId = url.searchParams.get('v');
+                        <!-- const videoId = i.link.match(/youtu\.be\/([a-zA-Z0-9_-]+)/)[1]; -->
+                      %>
+                    <div id="yt-container">
+                      <iframe
+                        id="yt-player" 
+                        class="video_news" 
+                        src=""
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen
+                      >
+                      </iframe>
+                    </div>
+                  <% } else if(i.video !== '') { %>
+                    <div id="video-container"></div>
+                  <% } else { %>
+                  <% } %>
+
+			                <div class="mt-2">
+                          <% tags != '' && tags.forEach(i => { %>
+                            <% if (i.name != 'FUNMESOCIAL') { %>
+                              <button type="button" class="btn btn-outline-dark mb-2">
+                                <%= i.name %>
+                              </button>
+                            <% } %>
+                          <% }) %>
+                            
+                        <div class="d-flex flex-wrap align-items-center border-0 text-white" id="tagBtn1">
+                          <%= i.social_media %>
+                        </div>
+                          
+                        <% if (tags == '') { %>
+				                	<button type="button" class="btn btn-outline-dark">
+				                		HIPHOP
+				                	</button>
+				                <% } %>
+                          
+				                <div 
+				                	class="card-text1 mt-3 videoText1 border-0" 
+				                	style="font-weight: normal; letter-spacing: 0.3px; font-size: 20px; color: black;"
+				                >
+				                	<div class="text-content border-0" 
+										data-full-text="<%= lang.smws.lang == 'en' ? i.title : i.title_translate %>"
+									>
+										<%= lang.smws.lang == 'en' ? i.title : i.title_translate %>
+									</div>
+				                	<button class="toggle-button" style="display: none;">
+										<i class="fa-solid fa-up-down-left-right" style="color: black;"></i>
+									</button>
+				                </div>
+				                <div class="d-flex align-items-center mt-2" style="text-indent: 10px;">
+				                	<div style="font-weight: normal; font-size: 13px; color: black;">
+				                		<i class="fa-solid fa-eye fa-xl me-2" style="color: grey;"></i><%= views.views %>
+				                	</div>
+				                	<div class="ms-4" style="font-weight: normal;">
+				                		<i class="fa-solid fa-clock fa-lg me-1" style="color: grey;"></i>
+				                		<span class="t_date"><%= i.date %></span>
+				                	</div>
+				                </div>
+				                <hr class="t_hr" />
+
+				                <div class="mt-2 t_cont_div">
+				                	<div class="tcd1">
+					                	<a href="/comments/<%= id %>/?n=news&t=<%= i.id %>&d=<%= i.title.replace(/[^a-zA-Z0-9\s]/g, '').split(' ').slice(0, 3).join('_') %>" type="button" class="btn btn-outline-dark me-3"><i class="fa-solid fa-message" 
+					                		style="color: grey;"></i> <%= comments %></a>
+					                	<button type="button" id="sh_btn" class="btn btn-outline-dark">
+					                		<i class="fa-solid fa-share-nodes" style="color: grey;"></i> Share
+					                	</button>
+				                	</div>
+				                	<div class="tcd2 d-flex align-items-center">
+					                	<button type="button" class="me-3 copyBtn" style="border: 0; background: transparent; white-space: nowrap; color: black;" onclick="copyToClipboard(this)">
+					                		<i class="fa-solid fa-link" style="color: grey;"></i> Copy Link
+					                	</button>
+					                	<div class="ms-1 me-3 text-secondary">|</div>
+					                	<button type="button" class="more_btn" style="border: 0; background: transparent; white-space: nowrap;">
+					                		More <i class="fa-solid fa-angle-down downBtn" style="color: black;"></i>
+					                	</button>
+					                </div>
+				                </div>
+                          
+                      <div class="share_btns border-0 mt-2" style="display: none;">
+                        <button type="button" 
+                                id="share-facebook" 
+                                class="btn bg-transparent me-2"
+                                data-image="<%= i.image %>"
+                                style="border: 1px solid black; border-radius: 50px; padding: 10px 15px;">
+                            <i class="fa-brands fa-facebook" style="color: blue;"></i>
+                        </button>
+                        <button type="button" 
+                                id="share-threads" 
+                                class="btn bg-transparent me-2"
+                                data-image="<%= i.image %>"
+                                style="border: 1px solid black; border-radius: 50px; padding: 10px 15px;">
+                            <i class="fa-brands fa-threads" style="color: blue;"></i>
+                        </button>
+                        <button type="button" 
+                                id="share-twitter" 
+                                class="btn bg-transparent me-2"
+                                data-image="<%= i.image %>"
+                                style="border: 1px solid black; border-radius: 50px; padding: 10px 15px;">
+                            <i class="fa-brands fa-x-twitter" style="color: blue;"></i>
+                        </button>
+                      </div>
+
+					            <div class="desc text-white mt-3 border-0" style="display: none;">
+					            	<p><%= lang.smws.lang == 'en' ? i.des : i.des_translate %></p>
+                        <!-- <% if (i.link !== '' && !i.link.includes("https://youtu.be")) { %>
+					            		<a href=""  class="mt-5" style="text-decoration: underline; color: black; font-size: 13px;"><%= i.link %></a>
+					            	<% } %> -->
+					            </div>
+				            </div>
+			            <% }) %>
+		    		</div>
+
+		    		<div class="col-12 col-sm-12 col-md-3 pt-4 border-0">
+		    			<% if(showTrending != '') { %>
+                <h5 class="text-center mt-3 mb-3 text-uppercase">
+                  <% if (lang.smws.lang == 'en') { %>
+                    <span style="color: #ee3483;">Trending</span> <span class="text-uppercase" style="color: #00e5fa;">Videos</span>
+                  <% } else { %>
+                    <span style="color: #ee3483;">Vídeos</span> <span class="text-uppercase" style="color: #00e5fa;">populares</span>
+                  <% } %>
+                </h5>
+
+			          <div class="t_cont">
+				          <% showTrending.forEach(i => { %>
+				            <div class="image-wrapper2 border-0">
+				              <a href="/news/<%= i.id %>/<%= i.title.replace(/[^a-zA-Z0-9\s]/g, '').split(' ').slice(0, 3).join('_') %>" class="text-white">
+											  <div class="skeleton2"></div>
+						            <div class="card3 h-100 text-bg-dark">
+						             	<img 
+						             		src="" 
+													   alt="Movie Image" 
+													   data-src="<%= i.portrait_image %>"
+													   class="t_img" 
+													   width="150" 
+													   height="100"
+											   	>
+													<div class="card_body">
+														<p class="card-title"><%= lang.smws.lang == 'en' ? i.title : i.title_translate %></p>
+														<div class="d-flex align-items-center">
+															<div class="d-flex align-items-center me-4">
+																<i class="fa-solid fa-eye fa-xl me-2" style="color: grey;"></i><%= i.views %>
+															</div>
+															<div class="d-flex align-items-center">
+																<i class="fa-solid fa-clock fa-lg me-2" style="color: grey;"></i>Today
+															</div>
+														</div>
+													</div>
+						            </div>
+						          </a>
+					          </div>
+				          <% }) %>
+			          </div>
+			        <% } %>
+		    		</div>
+                      
+                <div class="col-12 col-md-2 rightAds" style="background: #f0f0f0;"></div>
+
+		    		<% if(similar?.results != '') { %>
+                    	<div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;"></div>
+
+			    		<div class="col-12 col-sm-12 col-md-8 mt-4 similar bg-light">
+			    			<h4 class="text-uppercase">
+			                  <% if (lang.smws.lang == 'en') { %>
+			                    <span style="color: #ee3483;">Next</span> <span style="color: #00e5fa;">Videos</span>
+			                  <% } else { %>
+			                    <span style="color: #ee3483;">Vídeos</span> <span style="color: #00e5fa;">siguientes</span>
+			                  <% } %>
+			                <h4>
+
+			    			<div class="row row-cols-1 row-cols-md-3 g-4">
+			    				<% similar?.results.forEach(i => { %>
+									  <div class="col">
+									  	<a href="/news/<%= i.id %>/<%= i.title.replace(/[^a-zA-Z0-9\s]/g, '').split(' ').slice(0, 3).join('_') %>">
+										    <div class="card h-100 text-bg-dark div13">
+										    	<div class="skeleton3"></div>
+										      <img src="" data-src="<%= i.image %>" class="card-img-top" alt="...">
+										      <div class="card-body">
+										        <h5 class="card-title text-white mt-3 mb-3"><%= lang.smws.lang == 'en' ? i.title : i.title_translate %></h5>
+										        <p class="card-text d-none"><%= lang.smws.lang == 'en' ? i.des : i.des_translate %></p>
+                              
+                            <% 
+                                const smLinks = i.social_media.match(/http[^ ]+/g);
+                                let hasLinks = false; // Flag to check if any social media links are found
+                                let linkIcons = ''; // Variable to accumulate the generated link icons
+
+                                const socialMedia = [
+                                    {
+                                        name: 'instagram',
+                                        icon: '<i class="fa-brands fa-instagram fa-xl" style="color: white;"></i>',
+                                        regex: /https?:\/\/(www\.)?instagram\.com\/[^\s]+/g,
+                                    },
+                                    {
+                                        name: 'facebook',
+                                        icon: '<i class="fa-brands fa-facebook fa-xl" style="color: white;"></i>',
+                                        regex: /https?:\/\/(www\.)?facebook\.com\/[^\s\/]+\/?/g,
+                                    },
+                                    {
+                                        name: 'twitter',
+                                        icon: '<i class="fa-brands fa-twitter fa-xl" style="color: white;"></i>',
+                                        regex: /https?:\/\/(www\.)?(twitter\.com|x\.com)\/[^\s]+/g,
+                                    },
+                                    {
+                                        name: 'tiktok',
+                                        icon: '<i class="fa-brands fa-tiktok fa-xl" style="color: white;"></i>',
+                                        regex: /https?:\/\/(www\.)?tiktok\.com\/@[^\s]+/g,
+                                    },
+                                    {
+                                        name: 'threads',
+                                        icon: '<i class="fa-brands fa-threads fa-xl" style="color: white;"></i>',
+                                        regex: /https?:\/\/(www\.)?threads\.net\/@[^\s]+/g,
+                                    },
+                                    {
+                                        name: 'youtube',
+                                        icon: '<i class="fa-brands fa-youtube fa-xl" style="color: white;"></i>',
+                                        regex: /https?:\/\/(www\.)?youtube\.com\/[^\s]+|https?:\/\/(www\.)?youtu\.be\/[^\s]+/g,
+                                    }
+                                ];
+
+                                // Iterate through each link
+                                smLinks && smLinks.forEach(link => {
+                                    socialMedia.forEach(media => {
+                                        if (media.regex.test(link)) { // Check if the link matches the regex
+                                            hasLinks = true; // Set flag if a link is found
+                                            linkIcons += `<a href="${link}" target="_blank" class="card-link">${media.icon}</a>`; // Accumulate link with icon
+                                        }
+                                    });
+                                });
+                            %>
+
+                            <% if (hasLinks) { %>
+                                <div class="border-0 text-center">
+                                  <%- linkIcons %>
+                                </div>
+                            <% } %>
+										      </div>
+										      <div class="card-footer text-center">
+										        <small class="text-body-secondary">
+										        	<i class="fa-solid fa-eye fa-sm" style="color: grey;"></i>
+													    <%= i.views %>
+														</small>
+										      </div>
+										    </div>
+										  </a>
+									  </div>
+									<% }) %>
+								</div>
+
+				    		<div id="another"></div>
+				    		<div id="watch_end_of_document"> 
+				    			<div class="loader">
+							        <div class="dot"></div>
+							        <div class="dot"></div>
+							        <div class="dot"></div>
+							    </div>
+				    		</div>
+			    		</div>
+
+                		<div class="col-12 col-md-2 rightAds" style="background: #f0f0f0;"></div>
+			    	<% } %>
+
+			    	<div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;"></div>
+
+		        	<div class="col-12 col-sm-12 col-md-8" style="height: 200px;"></div>
+
+		        	<div class="col-12 col-md-2 rightAds" style="background: #f0f0f0;"></div>
+		    	<% } %>
+		    </div>
+		</div>
+	</section>
+                    
+  <section>
+	    <%- include("./includes/lang_select.ejs"); %>
+  </section>
+
+	<footer>
+		<%- include("./includes/footer.ejs"); %>
+	</footer>
+                    
+  <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+
+	<script>
+		const id = <%- JSON.stringify(tags) %>;
+		const showData = <%- JSON.stringify(showData) %>;
+		const similarT = <%- JSON.stringify(similar) %>;
+	</script>
+
+	<script type="text/javascript">
+	      // console.log("hii...");
+    // let isLoaded = false;
+    
+    // window.addEventListener('load', function () {
+	      const loadingSpinner = document.getElementById('loadingSpinner');
+        // console.log(loadingSpinner);
+    
+	      setTimeout(function() {
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
+        }, 3000);
+      // });
+    
+      	async function copyToClipboard(button) {
+	        try {
+              const url = window.location.href;
+	            await navigator.clipboard.writeText(url);
+
+	            // Change the button text and styles
+	            button.textContent = 'Copied';
+	            button.style.color = 'grey';
+	            button.style.backgroundColor = 'transparent';  // Optional: Change background color
+	        } catch (err) {
+	            console.log('Failed to copy:', err);
+	        }
+    		}
+
+	    globalThis.document.addEventListener('DOMContentLoaded', () => {
+			// console.log(id, similarT?.totalCount);
+        
+        // console.log(similarT, similarT.length >= 1);
+
+			let currentOffset = Number(similarT?.totalCount) || 0;
+			// let currentOffset = 12;
+
+				function handleVideoError(videoElement) {
+		        // Hide the video element
+		        videoElement.style.display = 'none';
+
+		        // Display a placeholder or alternative content
+		        const placeholder = document.createElement('div');
+		        placeholder.textContent = 'Video failed to load.';
+		        placeholder.style.color = 'red';
+		        placeholder.style.textAlign = 'center';
+		        placeholder.style.padding = '20px';
+
+		        videoElement.parentElement.appendChild(placeholder);
+		    }
+        
+      const shareBtn = document.querySelector("#sh_btn");
+        
+        const shareBtns = document.querySelector(".share_btns");
+
+			const images2 = document.querySelectorAll('.image-wrapper2 img');
+
+			const images3 = document.querySelectorAll('.div13 img');
+
+			// console.log(images3);
+        // console.log(id);
+
+			const ct = document.querySelectorAll('.card-text');
+
+			const ct2 = document.querySelectorAll('.card-title');
+
+			const td = document.querySelectorAll('.t_date');
+
+			const moreBtn = document.querySelector('.more_btn');
+
+			const baseImgUrl = "https://api.hiphopboombox.com/api/uploads/";
+        
+      shareBtn.addEventListener('click', () => {
+          if(shareBtns.style.display == 'block') {
+            shareBtns.style.display = 'none';
+          }
+          else {
+            shareBtns.style.display = 'block';
+          }
+      })
+        
+        document.getElementById('share-facebook').addEventListener('click', function(e) {
+            const url = window.location.href;
+            const imageUrl = baseImgUrl + e.target.parentElement.getAttribute('data-image');
+            // console.log(imageUrl);
+            const facebookShareURL = `https://www.facebook.com/sharer/sharer.php?u=${url}&picture=${imageUrl}`;
+            // console.log(facebookShareURL);
+            window.open(facebookShareURL, '_blank', 'width=600,height=400');
+        });
+        
+        document.getElementById('share-twitter').addEventListener('click', function(e) {
+            const text = encodeURIComponent('Check this out: ' + window.location.href);
+            const imageUrl = baseImgUrl+e.target.parentElement.getAttribute('data-image');
+            const twitterShareURL = `https://twitter.com/intent/tweet?text=${text}`;
+            window.open(twitterShareURL, '_blank', 'width=600,height=400');
+        });
+
+        document.getElementById('share-threads').addEventListener('click', function(e) {
+            const text = encodeURIComponent('Check this out: ' + window.location.href);
+            const imageUrl = baseImgUrl+e.target.parentElement.getAttribute('data-image');
+            const threadsShareURL = `https://threads.net/intent/post?text=${text}`;
+            window.open(threadsShareURL, '_blank', 'width=600,height=400');
+        });
+
+            images2.forEach(img => {
+                img.onload = () => {
+                    img.parentElement.previousElementSibling.style.display = 'none';
+                    img.parentElement.style.display = 'flex'; // Show image
+                };
+
+                img.onerror = () => {
+						        // Hide the image
+						        img.parentElement.style.display = 'none';
+						        
+						        // Show the skeleton loader
+						        const skeleton = img.parentElement.previousElementSibling;
+						        if (skeleton) {
+						            skeleton.style.display = 'block';
+						        }
+						    };
+
+                const imgElement = img.getAttribute('data-src');
+                // console.log(imgElement); 
+                
+                // console.log(!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop'));
+
+                if (!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop')) {
+                	img.setAttribute('src', baseImgUrl + imgElement);
+                }
+
+                else {
+                	img.setAttribute('src', imgElement); // Set src to trigger loading
+                }
+            });
+        
+            images3.forEach(img => {
+                img.onload = () => {
+                    img.previousElementSibling.style.display = 'none';
+                    img.style.display = 'block'; // Show image
+                };
+
+                img.onerror = () => {
+					        // Hide the image
+					        img.style.display = 'none';
+					        
+					        // Show the skeleton loader
+					        const skeleton = img.previousElementSibling;
+					        if (skeleton) {
+					            skeleton.style.display = 'block';
+					        }
+					    	};
+
+                const imgElement = img.getAttribute('data-src');
+                // console.log(imgElement); 
+                
+                // console.log(!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop'));
+
+                if (!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop')) {
+                	img.setAttribute('src', baseImgUrl + imgElement);
+                }
+
+                else {
+                	img.setAttribute('src', imgElement); // Set src to trigger loading
+                }
+            });
+
+      function abcd(d) {
+        const date1 = new Date(d).toISOString();
+
+				// Create a Date object from the date string
+				const date = new Date(date1);
+
+				// Format the date to "August 10, 2024"
+				const options = { year: 'numeric', month: 'long', day: 'numeric' };
+				const formattedDate = date.toLocaleDateString('en-US', options);
+				return formattedDate;
+			}
+
+				// function truncateText(text, wlength) {
+				// const words = text.split(' '); // Split the text into words
+				// if (words.length >= wlength) {
+				// return words.slice(0, wlength).join(' ') + '...'; // Join the first 50 words and add "..."
+				// }
+				// return text; // Return the original text if it's 50 words or less
+				// }
+        
+        function truncateText(text, m) {
+		        if (text.length > m) {
+		            return text.slice(0, m).trim() + '...'; // Truncate text and add "..."
+		        }
+		        return text;
+			  }
+
+			const textContents = document.querySelectorAll('.text-content');
+        
+      const descriptionElement = document.getElementById('tagBtn1');
+      let descriptionText = descriptionElement.textContent.trim();
+
+      // Function to replace social media links with anchor tags
+      const replaceSocialMediaLinks = (text) => {
+        // console.log(text);
+        // Define social media links and their corresponding icons
+        const socialMedia = [
+          {
+            name: 'instagram',
+            icon: '<i class="fa-brands fa-instagram fa-xl" style="color: white;"></i>',
+            regex: /https?:\/\/(www\.)?instagram\.com\/[^\s]+/g,
+          },
+          {
+            name: 'facebook',
+            icon: '<i class="fa-brands fa-facebook fa-xl" style="color: white;"></i>',
+            regex: /https?:\/\/(www\.)?facebook\.com\/[^\s\/]+\/?/g,
+          },
+          {
+            name: 'twitter',
+            icon: '<i class="fa-brands fa-twitter fa-xl" style="color: white;"></i>',
+            regex: /https?:\/\/(www\.)?(twitter\.com|x\.com)\/[^\s]+/g,
+          },
+          {
+              name: 'tiktok',
+              icon: '<i class="fa-brands fa-tiktok fa-xl" style="color: white;"></i>',
+              regex: /https?:\/\/(www\.)?tiktok\.com\/@[^\s]+/g,
+          },
+          {
+              name: 'threads',
+              icon: '<i class="fa-brands fa-threads fa-xl" style="color: white;"></i>',
+              regex: /https?:\/\/(www\.)?threads\.net\/@[^\s]+/g,
+          },
+          {
+              name: 'youtube',
+              icon: '<i class="fa-brands fa-youtube fa-xl" style="color: white;"></i>',
+              regex: /https?:\/\/(www\.)?youtube\.com\/[^\s]+|https?:\/\/(www\.)?youtu\.be\/[^\s]+/g,
+          },
+        ];
+        
+        let hasLinks = false;
+
+        // Replace each social media link with an anchor tag containing the icon
+        socialMedia.forEach(media => {
+            text = text.replace(media.regex, (link) => {
+                hasLinks = true; // Set flag if a link is found
+                return `<a href="${link}" target="_blank" class="card-link">${media.icon}</a>`;
+            });
+        });
+
+        return { text, hasLinks };
+      };
+
+      // Update the description with replaced links
+        
+      const { text: modifiedText, hasLinks } = replaceSocialMediaLinks(descriptionText);
+        
+      // console.log(modifiedText);
+      
+      descriptionElement.innerHTML = '';
+        
+      const parser = new DOMParser();
+            const doc = parser.parseFromString(modifiedText, 'text/html');
+            const links = Array.from(doc.querySelectorAll('a'));
+                    
+            const links2 = links.map(link => {
+                // console.log(link.querySelector('i').className);
+                const iconClass = link.querySelector('i').className; // Get the class name of the <i> tag
+                let color;
+
+                // Determine color based on the icon class
+                if (iconClass.includes('fa-instagram')) {
+                    color = '#E1306C'; // Set color for Instagram
+                } else if (iconClass.includes('fa-twitter')) {
+                    color = '#1DA1F2'; // Set color for Twitter
+                } else if (iconClass.includes('fa-facebook')) {
+                    color = '#1877F2'; // Set color for Facebook
+                } else if (iconClass.includes('fa-tiktok')) {
+                    color = '#00f2ea'; // Set color for TikTok
+                } else if (iconClass.includes('fa-thread')) {
+                    color = 'black'; // Set color for Threads
+                } else if (iconClass.includes('fa-youtube')) {
+                    color = 'red'; // Set color for Threads
+                } else {
+                    color = 'black'; // Default color if no match
+                }
+
+                // Change the color style in the inner HTML
+                const modifiedIcon = link.innerHTML.replace(/color:\s*[^;]+/, `color: ${color};`);
+
+                return {
+                    href: link.href,
+                    icon: modifiedIcon
+                };
+            });
+            
+            const tagBtn1 = document.getElementById('tagBtn1');
+          
+            // console.log(links2);
+          
+            links2.forEach(link => {
+                const newAnchor = document.createElement('a'); // Create a new anchor element
+                newAnchor.href = link.href; // Set the href attribute
+                newAnchor.target = "_blank"; // Set target to open in a new tab
+                newAnchor.className = "btn text-white"; // Copy class names
+                newAnchor.innerHTML = link.icon; // Copy inner HTML (icon)
+              
+                tagBtn1.appendChild(newAnchor); // Append the new anchor to the div
+            });
+
+			// console.log(textContents);
+
+			textContents.forEach(textContent => {
+			    const fullText = textContent.getAttribute('data-full-text'); // Retrieve the full text
+			    const truncated = truncateText(fullText);
+
+			    // console.log(fullText.split(' ').length);
+			    
+			    // Check if the full text needs to be truncated
+			    if (fullText.split(' ').length >= 8) {
+			        textContent.textContent = truncated;
+			        textContent.parentElement.querySelector('.toggle-button').style.display = 'block'; // Show the toggle button
+			    } else {
+			        textContent.textContent = fullText;
+			        textContent.parentElement.querySelector('.toggle-button').style.display = 'none'; // Hide the toggle button
+			    }
+			    
+			    // Add click event listener to toggle button
+			    textContent.parentElement.querySelector('.toggle-button').addEventListener('click', () => {
+			        if (textContent.textContent === truncated) {
+			            textContent.textContent = fullText; // Show full text
+			        } else {
+			            textContent.textContent = truncated; // Show truncated text
+			        }
+			    });
+			});
+
+			ct.forEach(i => {
+				// console.log(i.textContent.trim().split(' '));
+        i.textContent = truncateText(i.textContent.trim(), 30);
+			})
+
+			ct2.forEach(i => {
+				// console.log(i.textContent.trim());
+				i.textContent = truncateText(i.textContent.trim(), 20);
+			})
+
+			td.forEach(i => {
+				// console.log(i.textContent.trim());
+				i.textContent = abcd(i.textContent.trim());
+			})
+
+			moreBtn.addEventListener('click', (e) => {
+				const downBtn = document.querySelector('.downBtn');
+				downBtn.classList.remove('fa-angle-down');
+				downBtn.classList.add('fa-angle-up');
+
+				if (document.querySelector('.desc').style.display == 'none') {
+					document.querySelector('.desc').style.display = 'block';
+				} else {
+					document.querySelector('.desc').style.display = 'none';
+				}
+			})
+        
+      function addItems() {
+				// console.log("welcome...");
+				const formdata = new FormData();
+				formdata.append("cId", id[0].id);
+				formdata.append("offset", currentOffset);
+				formdata.append("filter", "o");
+
+				const requestOptions = {
+				  method: "POST",
+				  body: formdata,
+				  redirect: "follow"
+				};
+
+				fetch("https://api.hiphopboombox.com/api/get/categories_post.php", requestOptions)
+				   .then((response) => response.json())
+				   .then((result) => {
+				   		// console.log(result);
+              const response = result?.results;
+
+				   		if (response.length == 0) {
+				   			document.getElementById("watch_end_of_document").style.display = 'none';
+				   		}
+          
+              else {
+					   		currentOffset += Number(result?.totalCount);
+
+					   		const another = document.getElementById('another');
+					   		const tdWrapDiv = document.createElement('div');
+					   		tdWrapDiv.className = 'row row-cols-1 row-cols-md-3 g-4 mt-3';
+				           	response.forEach(i => {
+				               const itemDiv = document.createElement('div');
+				               itemDiv.className = 'col';
+				               itemDiv.innerHTML = `
+									  			<a href="/news/${i.id}">
+												    <div class="card h-100 text-bg-dark div13">
+												    	<div class="skeleton3"></div>
+												      <img src="" data-src="${i.image}" class="card-img-top" alt="...">
+												      <div class="card-body">
+												        <h5 class="card-title text-white mb-3">${i.title}</h5>
+												        <p class="card-text d-none">${i.des}</p>
+                                <div class="social-media text-center">${i.social_media}</div>
+												      </div>
+												      <div class="card-footer text-center">
+												        <small class="text-body-secondary">
+												        	<i class="fa-solid fa-eye fa-sm" style="color: grey;"></i>
+															    ${i.views}
+																</small>
+												      </div>
+												    </div>
+										  		</a>
+				               `;
+				               tdWrapDiv.appendChild(itemDiv);
+				           	});
+				        another.appendChild(tdWrapDiv);
+
+				        const images4 = tdWrapDiv.querySelectorAll('.div13 img');
+						    images4.forEach(img => {
+						        img.onload = () => {
+						            img.previousElementSibling.style.display = 'none'; // Hide the skeleton
+						            img.style.display = 'block'; // Show the image
+						        };
+
+						        img.onerror = () => {
+							        // Hide the image
+							        img.style.display = 'none';
+							        
+							        // Show the skeleton loader
+							        const skeleton = img.previousElementSibling;
+							        if (skeleton) {
+							            skeleton.style.display = 'block';
+							        }
+							    };
+
+				                const imgElement = img.getAttribute('data-src');
+				                // console.log(imgElement); 
+				                
+				                // console.log(!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop'));
+
+				                if (!imgElement.includes('www.w3schools') && !imgElement.includes('static.worldstarhiphop')) {
+				                	img.setAttribute('src', baseImgUrl + imgElement);
+				                }
+
+				                else {
+				                	img.setAttribute('src', imgElement); // Set src to trigger loading
+				                }
+						    });
+                
+                const ct = tdWrapDiv.querySelectorAll('.social-media');
+                
+                function truncateText(text) {
+                    const words = text.split(' '); // Split the text into words
+                    if (words.length >= 8) {
+                        return words.slice(0, 8).join(' ') + '...'; // Join the first 50 words and add "..."
+                    }
+                    return text; // Return the original text if it's 50 words or less
+                }
+                
+                const replaceSocialMediaLinks = (text) => {
+                  // console.log(text);
+                  // Define social media links and their corresponding icons
+                  const socialMedia = [
+                    {
+                      name: 'instagram',
+                      icon: '<i class="fa-brands fa-instagram fa-xl" style="color: white;"></i>',
+                      regex: /https?:\/\/(www\.)?instagram\.com\/[^\s]+/g,
+                    },
+                    {
+                      name: 'facebook',
+                      icon: '<i class="fa-brands fa-facebook fa-xl" style="color: white;"></i>',
+                      regex: /https?:\/\/(www\.)?facebook\.com\/[^\s\/]+\/?/g,
+                    },
+                    {
+                      name: 'twitter',
+                      icon: '<i class="fa-brands fa-twitter fa-xl" style="color: white;"></i>',
+                      regex: /https?:\/\/(www\.)?(twitter\.com|x\.com)\/[^\s]+/g,
+                    },
+                    {
+                        name: 'tiktok',
+                        icon: '<i class="fa-brands fa-tiktok fa-xl" style="color: white;"></i>',
+                        regex: /https?:\/\/(www\.)?tiktok\.com\/@[^\s]+/g,
+                    },
+                    {
+                        name: 'threads',
+                        icon: '<i class="fa-brands fa-threads fa-xl" style="color: white;"></i>',
+                        regex: /https?:\/\/(www\.)?threads\.net\/@[^\s]+/g,
+                    },
+                    {
+                        name: 'youtube',
+                        icon: '<i class="fa-brands fa-youtube fa-xl" style="color: white;"></i>',
+                        regex: /https?:\/\/(www\.)?youtube\.com\/[^\s]+|https?:\/\/(www\.)?youtu\.be\/[^\s]+/g,
+                    },
+                  ];
+
+                  let hasLinks = false;
+
+                  // Replace each social media link with an anchor tag containing the icon
+                  socialMedia.forEach(media => {
+                      text = text.replace(media.regex, (link) => {
+                          hasLinks = true; // Set flag if a link is found
+                          return `<a href="${link}" target="_blank" class="card-link">${media.icon}</a>`;
+                      });
+                  });
+
+                  return { text, hasLinks };
+                };
+                
+                ct.forEach(i => {
+                  // console.log(i.textContent.trim());
+                  let descriptionText = i.innerHTML.trim();
+                  const { text: modifiedText, hasLinks } = replaceSocialMediaLinks(descriptionText); // Check for links
+
+                  // console.log(modifiedText, hasLinks);
+
+                  if (hasLinks) {
+                      i.innerHTML = modifiedText; // Show icons if links are present
+                  } else {
+                    i.innerHTML = '';
+                  }
+                })
+						  }
+           })
+            .catch((error) => console.error(error));
+      }
+        
+      if (similarT?.totalCount > 1) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  if (id != '') {
+                    addItems();
+                  }
+                }
+            });
+        }, { threshold: 1.0 });
+                
+				io.observe(document.getElementById("watch_end_of_document"));
+		 }
+
+			const sform = document.getElementById('searchForm');
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent default form submission if needed
+                    sform.submit(); // Manually submit the form
+                }
+            });
+
+	        showData.forEach(async (item) => {
+              // console.log(item);
+	            // Create video element
+	            if (item.video !== '') {
+            		const videoId = 'video_' + Math.random().toString(36).substring(7); // Unique ID for the video element
+
+            		// Create video element
+            		const videoElement = document.createElement('video');
+            		videoElement.className = 'video_news video-js vjs-default-skin';
+            		videoElement.id = videoId; // Set the unique ID
+            		videoElement.controls = true;
+            		videoElement.muted = true;  // Muting the video
+            		videoElement.preload = 'metadata'; // Load metadata only
+            		videoElement.setAttribute('data-setup', '{}'); // Initialize Video.js with default options
+
+            		// Set poster image
+            		const posterUrl = item.image;
+            		videoElement.poster = !posterUrl.includes('www.w3schools') && !posterUrl.includes('static.worldstarhiphop')
+                		? baseImgUrl + posterUrl
+                		: posterUrl;
+
+            		// Set video URL
+            		const videoUrl = item.video;
+            		videoElement.src = `${baseImgUrl}${videoUrl}`;
+
+            		// Append video to container
+            		const videoContainer = document.getElementById('video-container');
+            		videoContainer.appendChild(videoElement);
+
+            		// Initialize Video.js player
+            		const player = videojs(videoId);
+
+		            // Optionally, you can start playing here if you want
+		            player.ready(() => {
+		                player.play();
+		            });
+
+		            // Fullscreen toggle on click
+		            videoElement.addEventListener('click', () => {
+		                if (player.isFullscreen()) {
+		                    player.exitFullscreen();
+		                } else {
+		                    player.requestFullscreen();
+		                }
+		            });
+		        }
+
+              else if (item.link !== '' && item.link.includes("youtube")) {
+                // const videoId = item.link.match(/youtu\.be\/([a-zA-Z0-9_-]+)/)[1];
+                let url = new URL(item.link);
+    
+                // Extract the video ID using URLSearchParams
+                let videoId = url.searchParams.get('v');
+
+                const ytPlayer = document.getElementById('yt-player');
+
+                // ytPlayer.src= `https://www.youtube.com/embed/${videoId}?version=3&autoplay=1&mute=1&loop=0&controls=1`;
+                
+                const loadingSpinner = document.getElementById('loadingSpinner');
+                
+                // console.log(loadingSpinner.style.display == '');
+	        
+	              if (loadingSpinner.style.display == '') {
+                  ytPlayer.src= `https://www.youtube.com/embed/${videoId}?version=3&autoplay=1&mute=1&loop=0&controls=1`;
+                }
+              }
+            
+              if(item.link !== '' && !item.link.includes("youtube")) {
+                const fsBtn = document.getElementById('tagBtn1');
+
+                // fsBtn.setAttribute('href', item.link);
+                const funmeButton = document.createElement('a');
+                funmeButton.href = item.link;
+                funmeButton.target = "_blank";
+                funmeButton.className = "btn text-white border-0 p-0";
+                funmeButton.style = "background: transparent;";
+                funmeButton.innerHTML = `<img src="https://i.ibb.co/C2nmQQB/fms.jpg" width="30" height="30" alt="FUNMESOCIAL" style="border-radius: 50px;">`;
+
+                tagBtn1.appendChild(funmeButton);
+              }
+	        });
+		})
+	</script>
+</body>
+
+<%- include("./includes/end.ejs"); %>

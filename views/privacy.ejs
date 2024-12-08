@@ -1,0 +1,101 @@
+<%- include("./includes/head.ejs", { data2: '' }); %>
+
+<link rel="stylesheet" href="/style.css">
+
+<body>
+	<header>
+		<%- include("./includes/header.ejs"); %>
+	</header>
+
+	<div class="loading-spinner" id="loadingSpinner">
+	    <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	    <div class="spinner"></div>
+  	</div>
+
+	<section>
+		<%- include("./includes/nav1.ejs", { myArray: catData }); %>
+	</section>
+
+	<section>
+		<div class="container bg-light div2 p-0">
+			<div class="row">
+				<% if(data != '') { %>
+					<div class="col-12 col-sm-12 mb-3 text-center">
+						<h2><%= data.name %></h2>
+					</div>
+
+					<div class="col-12 col-sm-12 mb-3">
+						<div class="p-2" id="descp"></div>
+					</div>
+
+					<div class="col-12" style="height: 100px;"></div>
+				<% } %>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<%- include("./includes/footer.ejs"); %>
+	</footer>
+
+	<script>
+		const data1 = <%- JSON.stringify(data) %>
+	</script>
+
+	<script type="text/javascript">
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        // console.log(loadingSpinner);
+    
+	    	setTimeout(function() {
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
+        }, 5000);
+
+        globalThis.document.addEventListener('DOMContentLoaded', () => {
+        	const data = data1;
+        	// console.log(data.description);
+
+        	// Function to convert text to HTML
+					function textToHtml(text) {
+					    // Split text by lines
+					    const lines = text.split('\n');
+
+					    // Initialize an empty array to hold HTML elements
+					    let html = '';
+
+					    // Iterate through each line
+					    for (let line of lines) {
+					    		let content = line;
+
+        					// Convert *text* to <strong>text</strong>
+        					content = content.replace(/\*(.*?)\*/g, '<b>$1</b>');
+
+					        if (line.startsWith('###')) {
+					            // Heading level 3
+					            html += `<h3>${line.replace(/^###/, '')}</h3>`;
+					        } 
+					        else if (line.startsWith('##')) {
+					            // Heading level 3
+					            html += `<h5>${line.replace(/^##/, '')}</h5>`;
+					        }
+					        else if (line.trim() === '') {
+					            // Skip empty lines
+					            continue;
+					        } else {
+					            // Regular paragraph
+					            html += `<p class="mt-3">${content}</p>`;
+					        }
+					    }
+
+					    return html;
+					}
+
+					// Insert HTML into the content div
+					document.getElementById('descp').innerHTML = textToHtml(data.description);
+        })
+    </script>
+
+</body>
+
+<%- include("./includes/end.ejs"); %>
