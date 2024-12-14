@@ -1,0 +1,212 @@
+<%- include("./includes/head.ejs", { data2: showData }); %>
+  
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/poll.css">
+
+<body class="bg-light" style="padding: 0; margin: 0;">  
+	<header>
+		<%- include("./includes/header.ejs"); %>
+	</header>
+
+	<div class="loading-spinner" id="loadingSpinner">
+	  <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	  <div class="spinner"></div>
+  </div>
+
+  <section>
+		<div class="container-fluid bg-light div1 border-0">
+			<div class="row">
+        <div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;"></div>
+
+				<div class="col-12 col-sm-12 col-md-8 nav1 border-0">
+					<% catData.forEach((i, index) => { %>
+						<a href="/filter/<%= i.id %>?name=<%= i.name %>" class="nav1_btns" style="border: 1px solid black; border-radius: 50px;"><%= i.name %></a>
+          <% }) %>
+				</div>
+				
+				<div class="col-12 col-md-2" style="background: #f0f0f0;"></div>
+
+				<div class="col-12 col-md-2" style="background: #f0f0f0;"></div>
+				<div class="col-12 col-md-8" style="height: 20px; background: lightgray;"></div>
+				<div class="col-12 col-md-2" style="background: #f0f0f0;"></div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container-fluid bg-light div14">
+		    <div class="row">
+		    	<div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;">
+						<div class="desktopAds">
+							<% if (data13[0] && data13.length > 0) { %>
+								<a href="<%= data13[0].link %>" style="text-decoration: none;">
+									<div class="card border-0" style="width: auto;">
+										<img src="https://api.hiphopboombox.com/api/uploads/<%= data13[0].image %>" class="card-img-top" alt="<%= data13[0].title %>">
+									</div>
+								</a>
+							<% } %>
+						</div>
+
+						<div class="mobileAds">
+							<% if (data14[1] && data14.length > 0) { %>
+								<a href="<%= data14[0].link %>" style="text-decoration: none;">
+									<div class="card border-0" style="width: auto;">
+										<img src="https://api.hiphopboombox.com/api/uploads/<%= data14[0].image %>" class="card-img-top" alt="<%= data14[0].title %>">
+									</div>
+								</a>
+							<% } %>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-8">
+            <div class="row">
+				    	<div class="col-12 col-sm-12 text-center mb-3">
+				    		<h4>Poll</h4>
+				    	</div>
+
+				    	<div class="col-12 col-md-3"></div>
+
+				    	<div class="col-12 col-md-6 text-center mb-3">
+				    		<% if(data != '') { %>
+				    			<div class="card text-bg-light h-100 mb-3 pollCard">
+										<% if(data.landscape_img != '') { %>
+								      	<img src="https://api.hiphopboombox.com/api/uploads/<%= data.landscape_img %>" class="img-fluid rounded-start" alt="poll" width="100%" height="200" loading="lazy">
+								    <% } else { %>
+								    	<img src="https://api.hiphopboombox.com/api/uploads/<%= data.portrait_image %>" class="img-fluid rounded-start" alt="poll" width="100%" height="200" loading="lazy">
+								    <% } %>
+								  	<div class="card-body p-0">
+								    	<h5 class="pollTitle">
+								    		<%= lang.smws.lang == 'en' ? data.question : data.ques_translate %>
+								    	</h5>
+								    	<p class="card-text">
+								    		<div class="p-2">
+									    		<% votes.forEach(i => { %>
+									    			<div class="me-2 fs-4"><%= i.option_text %><span class="ms-2">Votes: <%= i.votes %></span></div>
+									    		<% }) %>
+									    	</div>
+
+								    		<div class="mt-2">
+								    			<h5 class="text-success">Ans. <%= votes[data.answer-1].option_text %></h5>
+								    		</div>
+								    	</p>
+								  	</div>
+		                <div class="card-footer mt-3 d-flex justify-content-evenly align-items-center bg-transparent  border-success">
+								        <button onclick="shareOnSocialMedia('threads')" class="btn border-0">
+								        	<i class="fa-brands fa-threads fa-2xl" style="color: black;"></i>
+								        </button>
+								        <button onclick="shareOnSocialMedia('twitter')" class="btn border-0">
+								        	<i class="fa-brands fa-twitter fa-2xl" style="color: black;"></i>
+								        </button>
+								        <button onclick="shareOnSocialMedia('facebook')" class="btn border-0">
+								        	<i class="fa-brands fa-facebook fa-2xl" style="color: black;"></i>
+								        </button>
+		                </div>
+									</div>
+								<% } else { %>
+									<h5>No data found...</h5>
+								<% } %>
+							</div>
+
+							<div class="col-12 col-md-3"></div>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-2 rightAds" style="background: #f0f0f0;">
+						<div class="desktopAds">
+							<% if (data13[1] && data13.length > 0) { %>
+				              	<a href="<%= data13[1].link %>" style="text-decoration: none;">
+					                <div class="card border-0" style="width: auto;">
+					                  <img src="https://api.hiphopboombox.com/api/uploads/<%= data13[1].image %>" class="card-img-top" alt="<%= data13[1].title %>">
+					                </div>
+				              	</a>
+				            <% } %>
+				    </div>
+
+				    <div class="mobileAds">
+							<% if (data14[1] && data14.length > 0) { %>
+								<a href="<%= data14[1].link %>" style="text-decoration: none;">
+									<div class="card border-0" style="width: auto;">
+										<img src="https://api.hiphopboombox.com/api/uploads/<%= data14[1].image %>" class="card-img-top" alt="<%= data14[1].title %>">
+									</div>
+								</a>
+							<% } %>
+						</div>
+					</div>
+		    </div>
+		</div>
+	</section>
+
+	<section>
+	  <%- include("./includes/lang_select.ejs"); %>
+ 	</section>
+
+	<footer>
+		<%- include("./includes/footer.ejs"); %>
+	</footer>
+            
+  <script>
+		const data3 = <%- JSON.stringify(data) %>;
+	</script>
+
+	<script type="text/javascript">
+	    const loadingSpinner = document.getElementById('loadingSpinner');
+        // console.log(loadingSpinner);
+    
+	      setTimeout(function() {
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
+        }, 3000);
+
+        const screenWidth = window.innerWidth;
+
+				// console.log(screenWidth);
+
+				const desktopAds = document.querySelector('.desktopAds');
+				const mobileAds = document.querySelector('.mobileAds');
+
+				// console.log(desktopAds, mobileAds);
+
+				if (screenWidth <= 500) {
+					desktopAds.style.display = 'none';
+					mobileAds.style.display = 'block';
+				}
+				else {
+					mobileAds.style.display = 'none';
+					desktopAds.style.display = 'block';
+				}
+    
+        const data = data3;
+    
+        console.log(data, data == '');
+    
+        if (data != '') {
+        	function shareOnSocialMedia(platform) {
+	          const question = "<%= lang.smws.lang == 'en' ? data.question : data.ques_translate %>";
+	          const answer = "<%= votes[data.answer-1].option_text %>";
+	          const url = encodeURIComponent(window.location.href); // Current page URL
+	          const text = encodeURIComponent(`${question} - ${answer}`);
+	          
+	          // console.log(url, text);
+
+	          switch(platform) {
+	              case 'threads':
+	                  window.open(`https://threads.net/intent/post?text=${text}`, '_blank');
+	                  break;
+	              case 'twitter':
+	                  window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+	                  break;
+	              case 'facebook':
+	                  const facebookShareURL = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+	                  // console.log(facebookShareURL);
+	                  window.open(facebookShareURL, '_blank', 'width=600,height=400');
+	                  break;
+	              default:
+	                  alert('Unsupported platform');
+	          }
+      		}
+        }
+ </script>
+</body>
+
+<%- include("./includes/end.ejs"); %>

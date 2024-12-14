@@ -1,0 +1,258 @@
+.bp_div1 {
+	display: flex;
+	flex-direction: column;
+}
+
+.bp_div1 .card {
+	height: 100px;
+	overflow-y: hidden;
+}
+
+.bp_div2 {
+	display: none;
+}
+
+.skeleton2 {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  height: 100px; /* Set the height to 300px */
+  width: 100%; /* Adjust the width as needed */
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite;  /* Uncomment if using shimmer animation */
+}
+
+.bp_img1 {
+	display: none;
+	width: 100%;
+	height: 100px;
+}
+
+.bp_img1 img {
+	object-fit: fill;
+  height: 100%;
+}
+
+.bp_div1 .card-body {
+	height: 100px;
+	overflow-y: hidden;
+}
+
+.bp_div1 .card-title {
+	font-size: 0.9rem;
+}
+
+.bp_div3 {
+	padding: 20px;
+}
+
+.bp_div4 .card {
+	height: 200px;
+	overflow-y: hidden;
+}
+
+.bp_div4 .skeleton2 {
+	background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  	height: 200px; /* Set the height to 300px */
+  	width: 100%; /* Adjust the width as needed */
+  	border-radius: 4px;
+  	animation: shimmer 1.5s infinite;
+}
+
+.bp_div4 .card-title {
+	font-size: 1rem;
+}
+
+.bp_div4 .card-text {
+	font-size: 0.8rem;
+}
+
+.bp_img3 {
+	display: none;
+	height: 200px;
+}
+
+.bp_img3 img {
+	object-fit: full;
+	height: 100%;
+}
+
+.bp_div5 {
+	display: none;
+}
+
+#button-container {
+  background-color: black;
+  padding: 10px; /* Optional: Add padding to adjust the size of the blue background */
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+#button-container button {
+  border: none;
+  background: black;
+  color: white;
+}
+
+.btn_deactive {
+	display: none;
+}
+
+.btn_active {
+	display: inline-block;
+}
+
+.leftAds {
+	padding: 10px 10px 0 20px;
+}
+
+.rightAds {
+	padding: 10px 20px 0 10px;
+}
+
+.leftAds img {
+	display: inline-block !important;
+}
+
+.rightAds img {
+	display: inline-block !important;
+}
+
+.mobileAds {
+	display: none;
+}
+
+@media (max-width: 500px) {
+	.desktopAds {
+		display: none;
+	}
+
+	.mobileAds {
+		display: block;
+	}
+
+	.bp_div1 {
+		display: none;
+	}
+
+	.blogg_divv1 .col-md-8 {
+		padding: 0 25px;
+	}
+
+	.bp_div {
+		padding: 0 20px;
+	}
+
+	.bp_div2 {
+		width: 100%;
+		overflow-x: auto;
+  		display: flex;
+  		flex-direction: row;
+  		margin-bottom: 30px;
+	}
+
+	.bp_div2::-webkit-scrollbar {
+	  height: 8px; /* Adjust scrollbar height */
+	  display: none;
+	}
+
+	.bp_div2::-webkit-scrollbar-thumb {
+	  background-color: rgba(0, 0, 0, 0.3); /* Customize scrollbar color */
+	  border-radius: 10px; /* Round scrollbar */
+	}
+
+	.bp_div2 .card {
+		width: 200px !important;
+		height: 250px;
+		box-sizing: border-box; /* Ensure padding and borders are included in width */
+		flex-shrink: 0; /* Prevent cards from shrinking */
+		margin-right: 10px; /* Optional: Add space between cards */
+	}
+
+	.bp_div2 .skeleton2 {
+		background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  		height: 150px; /* Set the height to 300px */
+  		width: 100%; /* Adjust the width as needed */
+  		border-radius: 4px;
+  		animation: shimmer 1.5s infinite;  
+	}
+
+	.bp_img2 {
+		display: none;
+		width: 100%;
+		height: 150px;
+		overflow-y: hidden;
+	}
+
+	.bp_img2 img {
+		object-fit: full;
+		height: 100%;
+	}
+
+	.bp_div2 .card-body {
+		height: 50px;
+		overflow-y: hidden;
+	}
+
+	.bp_div2 .card-title {
+		font-size: 0.7rem;
+	}
+
+	.bp_div4 {
+		display: none;
+	}
+
+	.bp_div5 {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.bp_div5 .card {
+		height: 300px;
+	}
+
+	.bp_div5 .skeleton2 {
+		background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  		height: 150px; /* Set the height to 300px */
+  		width: 100%; /* Adjust the width as needed */
+  		border-radius: 4px;
+  		animation: shimmer 1.5s infinite;  
+	}
+
+	.bp_img4 {
+		display: none;
+		height: 150px;
+	}
+
+	.bp_img4 img {
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.bp_div5 .card-body {
+		height: 150px;
+		overflow-y: hidden;
+	}
+
+	.bp_div5 .card-title {
+		font-size: 0.9rem;
+	}
+
+	.bp_div5 .card-text {
+		font-size: 0.7rem;
+	}
+
+	  .leftAds {
+		padding: 10px 20px 0 20px;
+	}
+
+	.rightAds {
+		padding: 10px 20px 0 20px;
+	}
+
+  .leftAds img {
+  	height: 80px;
+  }
+
+  .rightAds img {
+  	height: 80px;
+  }
+}

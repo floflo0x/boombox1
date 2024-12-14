@@ -1,0 +1,173 @@
+<%- include("./includes/head.ejs", { data2: '' }); %>
+
+<link rel="stylesheet" href="/style.css">
+
+<body>
+	<header>
+		<%- include("./includes/header.ejs"); %>
+	</header>
+
+	<div class="loading-spinner" id="loadingSpinner">
+	  <img src="/cube.webp" alt="Your Logo" class="logoSp">
+	  <div class="spinner"></div>
+  </div>
+
+	<section>
+		<%- include("./includes/nav1.ejs", { myArray: catData }); %>
+	</section>
+
+	<section>
+		<div class="container-fluid bg-light div2 p-0">
+			<div class="row">
+				<div class="col-12 col-md-2 leftAds" style="background: #f0f0f0;">
+					<div class="desktopAds">
+						<% if (data13[0] && data13.length > 0) { %>
+							<a href="<%= data13[0].link %>" style="text-decoration: none;">
+								<div class="card border-0" style="width: auto;">
+									<img src="https://api.hiphopboombox.com/api/uploads/<%= data13[0].image %>" class="card-img-top" alt="<%= data13[0].title %>">
+								</div>
+							</a>
+						<% } %>
+					</div>
+
+					<div class="mobileAds">
+						<% if (data14[1] && data14.length > 0) { %>
+							<a href="<%= data14[0].link %>" style="text-decoration: none;">
+								<div class="card border-0" style="width: auto;">
+									<img src="https://api.hiphopboombox.com/api/uploads/<%= data14[0].image %>" class="card-img-top" alt="<%= data14[0].title %>">
+								</div>
+							</a>
+						<% } %>
+					</div>
+				</div>
+
+				<% if(data != '') { %>
+					<div class="col-12 col-md-8 div12">
+            <div class="row">
+							<div class="col-12 col-sm-12 mt-3 mb-3 text-center">
+								<h2><%= data.name %></h2>
+							</div>
+
+							<div class="col-12 col-sm-12 mb-3">
+								<div class="p-2" id="descp"></div>
+							</div>
+
+							<div class="col-12" style="height: 100px;"></div>
+						</div>
+					</div>
+				<% } else { %>
+          <div class="col-12 col-md-8 p-0">
+            <div class="row">
+              <div class="col-12 col-sm-12 text-center mb-5" style="font-weight: 700; font-size: 15px;">No data found...</div>
+            </div>
+          </div>
+        <% } %>
+
+        <div class="col-12 col-md-2 rightAds" style="background: #f0f0f0;">
+					<div class="desktopAds">
+						<% if (data13[1] && data13.length > 0) { %>
+			        <a href="<%= data13[1].link %>" style="text-decoration: none;">
+				        <div class="card border-0" style="width: auto;">
+				          <img src="https://api.hiphopboombox.com/api/uploads/<%= data13[1].image %>" class="card-img-top" alt="<%= data13[1].title %>">
+				        </div>
+			        </a>
+			      <% } %>
+			    </div>
+
+			    <div class="mobileAds">
+						<% if (data14[1] && data14.length > 0) { %>
+							<a href="<%= data14[1].link %>" style="text-decoration: none;">
+								<div class="card border-0" style="width: auto;">
+									<img src="https://api.hiphopboombox.com/api/uploads/<%= data14[1].image %>" class="card-img-top" alt="<%= data14[1].title %>">
+								</div>
+							</a>
+						<% } %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<%- include("./includes/footer.ejs"); %>
+	</footer>
+
+	<script>
+		const data1 = <%- JSON.stringify(data) %>
+	</script>
+
+	<script type="text/javascript">
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        // console.log(loadingSpinner);
+    
+	    	setTimeout(function() {
+            if (loadingSpinner) {
+              loadingSpinner.style.display = 'none';
+            }
+        }, 2000);
+
+        const screenWidth = window.innerWidth;
+
+				// console.log(screenWidth);
+
+				const desktopAds = document.querySelector('.desktopAds');
+				const mobileAds = document.querySelector('.mobileAds');
+
+				// console.log(desktopAds, mobileAds);
+
+				if (screenWidth <= 500) {
+					desktopAds.style.display = 'none';
+					mobileAds.style.display = 'block';
+				}
+				else {
+					mobileAds.style.display = 'none';
+					desktopAds.style.display = 'block';
+				}
+
+        globalThis.document.addEventListener('DOMContentLoaded', () => {
+        	const data = data1;
+        	// console.log(data.description);
+
+        	// Function to convert text to HTML
+					function textToHtml(text) {
+					    // Split text by lines
+					    const lines = text.split('\n');
+
+					    // Initialize an empty array to hold HTML elements
+					    let html = '';
+
+					    // Iterate through each line
+					    for (let line of lines) {
+					    		let content = line;
+
+        					// Convert *text* to <strong>text</strong>
+        					content = content.replace(/\*(.*?)\*/g, '<b>$1</b>');
+
+					        if (line.startsWith('###')) {
+					            // Heading level 3
+					            html += `<h3>${line.replace(/^###/, '')}</h3>`;
+					        } 
+					        else if (line.startsWith('##')) {
+					            // Heading level 3
+					            html += `<h5>${line.replace(/^##/, '')}</h5>`;
+					        }
+					        else if (line.trim() === '') {
+					            // Skip empty lines
+					            continue;
+					        } else {
+					            // Regular paragraph
+					            html += `<p class="mt-3">${content}</p>`;
+					        }
+					    }
+
+					    return html;
+					}
+
+					// Insert HTML into the content div
+					document.getElementById('descp').innerHTML = textToHtml(data.description);
+        })
+    </script>
+
+</body>
+
+<%- include("./includes/end.ejs"); %>

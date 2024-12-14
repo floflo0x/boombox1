@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8432136941148227"
+     crossorigin="anonymous">
+  </script>
+
+  <% if(data2.length >= 1) { %>
+    <meta property="og:title" content="<%= data2[0].title %>" />
+    <meta property="twitter:title" content="<%= data2[0].title %>" />
+    <% const iwe = data2[0].image.split('.').slice(0, -1).join('.') + '.jpeg'; %>
+    <meta property="og:image" content="https://api.hiphopboombox.com/api/uploads/fb/<%= iwe %>" />
+    <meta property="twitter:image" content="https://api.hiphopboombox.com/api/uploads/fb/<%= iwe %>" />
+    <meta property="og:url" content="<%= data2[0]?.url %>" />
+    <meta property="twitter:url" content="<%= data2[0]?.url %>" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="" />
+  <% } else { %>
+    <meta property="og:title" content="" />
+    <meta property="og:image" content="https://api.hiphopboombox.com/api/uploads/hiphop.jpg" />
+    <meta property="og:url" content="" />
+    <meta property="twitter:url" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="" />
+    <meta property="twitter:image" content="https://api.hiphopboombox.com/api/uploads/hiphop.jpg" />
+  <% } %>
+  
+	<title><%= title %></title>
+	<meta name="title" content="Viral Videos, Breaking News, and the Latest in Hip-Hop Culture">
+  <meta name="description" content="The best in hip-hop, trending viral videos, music, street culture and uncut entertainment—straight to your screen. Watch it, share it, live it">
+  <meta name="keywords" content="hiphopboombox, viral hip hop videos, trending videos, street culture, viral entertainment, eye candy videos, cheating videos, fight videos, comedy, sports, animal attacks, sneakers,  hip hop news, music videos, hip hop culture, breaking news, rap music, viral memes, hip hop blog, celebrity news, urban news, street life videos, hip hop trends, unfiltered videos, trending music, latest hip hop news, viral hip hop content, hip hop website, music culture, street videos, urban culture, rap culture, entertainment news, hip hop entertainment, latest hip hop videos, viral content, music industry news, uncut videos, hip hop boombox">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="English">
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  	<!-- Fonts -->
+  	<link href="https://fonts.googleapis.com" rel="preconnect">
+  	<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  	
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PR6FCW3J51"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-PR6FCW3J51');
+    </script>
+</head>
+  <!-- Google Tag Manager (noscript) -->
+  <!-- End Google Tag Manager (noscript) -->
